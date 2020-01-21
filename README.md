@@ -1,4 +1,4 @@
-# Oddaj w dobre ręcę - Charity app.
+# Oddam w dobre ręce - Charity app.
 ##Description:
 
 
