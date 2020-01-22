@@ -139,6 +139,8 @@ document.addEventListener("DOMContentLoaded", function() {
         });
       });
 
+
+
       // Form submit
       this.$form.querySelector("form").addEventListener("submit", e => this.submit(e));
     }
@@ -171,4 +173,37 @@ document.addEventListener("DOMContentLoaded", function() {
   if (form !== null) {
     new FormSteps(form);
   }
+
+
+
+
 });
+function getSummary() {
+  var getQuantityOfBags = document.getElementById("getQuantityOfBags");
+  var getAddress = document.getElementById("getAddress");
+  var getCity = document.getElementById("getCity");
+  var getPostCode = document.getElementById("getPostCode");
+  var getPhone = document.getElementById("getPhone");
+  var getData = document.getElementById("getData");
+  var getTime = document.getElementById("getTime");
+  var getMoreInfo = document.getElementById("getMoreInfo");
+
+  var setQuantityOfBags= document.getElementById("setQuantityOfBags");
+  var setAddress = document.getElementById("setAddress");
+  var setCity = document.getElementById("setCity");
+  var setPostCode = document.getElementById("setPostCode");
+  var setPhone = document.getElementById("setPhone");
+  var setData = document.getElementById("setData");
+  var setTime = document.getElementById("setTime");
+  var setMoreInfo = document.getElementById("setMoreInfo");
+
+
+  setQuantityOfBags.innerText=getQuantityOfBags.value + " worki rzeczy dla potrzebujących dzieci";
+  setAddress.innerText=getAddress.value;
+  setCity.innerText=getCity.value;
+  setPostCode.innerText=getPostCode.value;
+  setPhone.innerText=getPhone.value;
+  setData.innerText=getData.value;
+  setTime.innerText=getTime.value;
+  setMoreInfo.innerText=getMoreInfo.value;
+}

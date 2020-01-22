@@ -111,7 +111,7 @@
             <div class="form-group form-group--inline">
               <label>
                 Liczba 60l worków:
-                <form:input path="quantity" type="number" name="bags" step="1" min="1" />
+                <form:input id="getQuantityOfBags" path="quantity" type="number" name="bags" step="1" min="1" />
               </label>
             </div>
 
@@ -154,22 +154,22 @@
               <div class="form-section--column">
                 <h4>Adres odbioru</h4>
                 <div class="form-group form-group--inline">
-                  <label> Ulica <form:input path="street" type="text" name="address" /> </label>
+                  <label> Ulica <form:input path="street" type="text" id="getAddress" name="address" /> </label>
                 </div>
 
                 <div class="form-group form-group--inline">
-                  <label> Miasto <form:input path="city" type="text" name="city" /> </label>
+                  <label> Miasto <form:input path="city" type="text" id="getCity" name="city" /> </label>
                 </div>
 
                 <div class="form-group form-group--inline">
                   <label>
-                    Kod pocztowy <form:input path="zipCode" type="text" name="postcode" />
+                    Kod pocztowy <form:input path="zipCode" type="text" id="getPostCode" name="postcode" />
                   </label>
                 </div>
 
                 <div class="form-group form-group--inline">
                   <label>
-                    Numer telefonu <form:input path="phoneNumber" type="phone" name="phone" />
+                    Numer telefonu <form:input path="phoneNumber" type="phone" id="getPhone" name="phone" />
                   </label>
                 </div>
               </div>
@@ -177,24 +177,24 @@
               <div class="form-section--column">
                 <h4>Termin odbioru</h4>
                 <div class="form-group form-group--inline">
-                  <label> Data <form:input path="pickUpDate" type="date" name="data" /> </label>
+                  <label> Data <form:input path="pickUpDate" type="date" id="getData" name="data" /> </label>
                 </div>
 
                 <div class="form-group form-group--inline">
-                  <label> Godzina <form:input path="pickUpTime" type="time" name="time" /> </label>
+                  <label> Godzina <form:input path="pickUpTime" type="time" id="getTime" name="time" /> </label>
                 </div>
 
                 <div class="form-group form-group--inline">
                   <label>
                     Uwagi dla kuriera
-                    <form:textarea path="pickUpComment" name="more_info" rows="5"></form:textarea>
+                    <form:textarea path="pickUpComment" name="more_info" id="getMoreInfo" rows="5"></form:textarea>
                   </label>
                 </div>
               </div>
             </div>
             <div class="form-group form-group--buttons">
               <button type="button" class="btn prev-step">Wstecz</button>
-              <button type="button" class="btn next-step">Dalej</button>
+              <button type="button" onclick="getSummary()" class="btn next-step">Dalej</button>
             </div>
           </div>
 
@@ -208,9 +208,7 @@
                 <ul>
                   <li>
                     <span class="icon icon-bag"></span>
-                    <span class="summary--text"
-                      >${donation.phoneNumber}4 worki ubrań w dobrym stanie dla dzieci</span
-                    >
+                    <span class="summary--text" id="setQuantityOfBags">4 worki ubrań w dobrym stanie dla dzieci</span >
                   </li>
 
                   <li>
@@ -226,19 +224,19 @@
                 <div class="form-section--column">
                   <h4>Adres odbioru:</h4>
                   <ul>
-                    <li>Prosta 51</li>
-                    <li>Warszawa</li>
-                    <li>99-098</li>
-                    <li>123 456 789</li>
+                    <li id="setAddress">Prosta 51</li>
+                    <li id="setCity">Warszawa</li>
+                    <li id="setPostCode">99-098</li>
+                    <li id="setPhone">123 456 789</li>
                   </ul>
                 </div>
 
                 <div class="form-section--column">
                   <h4>Termin odbioru:</h4>
                   <ul>
-                    <li>13/12/2018</li>
-                    <li>15:40</li>
-                    <li>Brak uwag</li>
+                    <li id="setData">13/12/2018</li>
+                    <li id="setTime">15:40</li>
+                    <li id="setMoreInfo">Brak uwag</li>
                   </ul>
                 </div>
               </div>
