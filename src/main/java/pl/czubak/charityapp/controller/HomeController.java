@@ -1,16 +1,14 @@
-package pl.czubak.charityapp.config.controller;
+package pl.czubak.charityapp.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import pl.czubak.charityapp.config.entity.Category;
-import pl.czubak.charityapp.config.entity.Institution;
-import pl.czubak.charityapp.config.repository.CategoryRepository;
-import pl.czubak.charityapp.config.repository.DonationRepository;
-import pl.czubak.charityapp.config.repository.InstitutionRepository;
-import pl.czubak.charityapp.config.service.DonationService;
-
-import java.util.List;
+import pl.czubak.charityapp.entity.Category;
+import pl.czubak.charityapp.entity.Institution;
+import pl.czubak.charityapp.repository.CategoryRepository;
+import pl.czubak.charityapp.repository.DonationRepository;
+import pl.czubak.charityapp.repository.InstitutionRepository;
+import pl.czubak.charityapp.service.DonationService;
 
 @Controller
 public class HomeController {
@@ -30,14 +28,6 @@ public class HomeController {
         model.addAttribute("institutions", institutionRepository.findAll());
         model.addAttribute("numberOfSupportedInstitutions", donationRepository.numberOfSupportedInstitutions());
         model.addAttribute("donationAmount", donationService.donationAmount());
-        Category category = new Category();
-        category.setName("sadasdasd");
-        Institution institution = new Institution();
-        institution.setName("Asdasdasd");
-        institution.setDescription("adsdasdasdasd");
-        institutionRepository.save(institution);
-        categoryRepository.save(category);
-
         return "index";
     }
 }

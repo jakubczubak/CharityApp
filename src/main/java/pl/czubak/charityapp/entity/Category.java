@@ -1,6 +1,4 @@
-package pl.czubak.charityapp.config.entity;
-
-import org.springframework.stereotype.Repository;
+package pl.czubak.charityapp.entity;
 
 import javax.persistence.*;
 

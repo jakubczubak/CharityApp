@@ -1,7 +1,7 @@
-package pl.czubak.charityapp.config.service;
+package pl.czubak.charityapp.service;
 
 import org.springframework.stereotype.Service;
-import pl.czubak.charityapp.config.repository.DonationRepository;
+import pl.czubak.charityapp.repository.DonationRepository;
 
 @Service
 public class DonationService {

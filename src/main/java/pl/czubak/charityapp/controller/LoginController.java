@@ -1,4 +1,4 @@
-package pl.czubak.charityapp.config.controller;
+package pl.czubak.charityapp.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

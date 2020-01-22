@@ -1,4 +1,4 @@
-package pl.czubak.charityapp.config.entity;
+package pl.czubak.charityapp.entity;
 
 import org.springframework.format.annotation.DateTimeFormat;
 

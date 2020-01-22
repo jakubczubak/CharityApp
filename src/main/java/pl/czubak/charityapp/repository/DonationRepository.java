@@ -1,8 +1,8 @@
-package pl.czubak.charityapp.config.repository;
+package pl.czubak.charityapp.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import pl.czubak.charityapp.config.entity.Donation;
+import pl.czubak.charityapp.entity.Donation;
 
 public interface DonationRepository extends JpaRepository<Donation,Long> {
 
