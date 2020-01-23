@@ -187,6 +187,7 @@ function getSummary() {
   var getData = document.getElementById("getData");
   var getTime = document.getElementById("getTime");
   var getMoreInfo = document.getElementById("getMoreInfo");
+  var getInstitutionName = document.querySelector("#getInstitutionName");
 
   var setQuantityOfBags= document.getElementById("setQuantityOfBags");
   var setAddress = document.getElementById("setAddress");
@@ -196,6 +197,7 @@ function getSummary() {
   var setData = document.getElementById("setData");
   var setTime = document.getElementById("setTime");
   var setMoreInfo = document.getElementById("setMoreInfo");
+  var setInstitutionName = document.getElementById("setInstitutionName");
 
 
   setQuantityOfBags.innerText=getQuantityOfBags.value + " worki rzeczy dla potrzebujących dzieci";
@@ -206,4 +208,8 @@ function getSummary() {
   setData.innerText=getData.value;
   setTime.innerText=getTime.value;
   setMoreInfo.innerText=getMoreInfo.value;
+  //do poprawy(trzeba pobrac zaznaczony radio button);
+  setInstitutionName.innerText="Wspierasz: " + getInstitutionName.innerHTML;
+
+
 }
