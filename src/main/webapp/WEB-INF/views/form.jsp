@@ -128,7 +128,7 @@
             <h3>Wybierz organizacje, której chcesz pomóc:</h3>
                 <c:forEach items="${institutions}" var="institution">
                   <div class="form-group form-group--checkbox">
-                    <label>
+                    <label id="getLabel">
                       <input type="radio" name="organization" value="${institution.id}"/>
                       <span class="checkbox radio"></span>
                       <span class="description">

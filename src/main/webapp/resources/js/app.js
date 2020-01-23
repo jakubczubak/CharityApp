@@ -187,7 +187,9 @@ function getSummary() {
   var getData = document.getElementById("getData");
   var getTime = document.getElementById("getTime");
   var getMoreInfo = document.getElementById("getMoreInfo");
-  var getInstitutionName = document.querySelector("#getInstitutionName");
+  var getInstitutionName = document.querySelectorAll("#getInstitutionName");
+
+  var getLabels = document.querySelectorAll("#getLabel");
 
   var setQuantityOfBags= document.getElementById("setQuantityOfBags");
   var setAddress = document.getElementById("setAddress");
@@ -199,6 +201,21 @@ function getSummary() {
   var setMoreInfo = document.getElementById("setMoreInfo");
   var setInstitutionName = document.getElementById("setInstitutionName");
 
+  for(var i =0 ; i<getLabels.length;i++){
+    var children = getLabels[i].children;
+    var test = children[0].checked;
+    if(test){
+      setInstitutionName.innerText="Wspierasz: " + getInstitutionName[i].innerHTML;
+
+    } else{
+      setInstitutionName.innerText=""
+    }
+
+  }
+  console.log(test);
+
+
+
 
   setQuantityOfBags.innerText=getQuantityOfBags.value + " worki rzeczy dla potrzebujących dzieci";
   setAddress.innerText=getAddress.value;
@@ -208,8 +225,8 @@ function getSummary() {
   setData.innerText=getData.value;
   setTime.innerText=getTime.value;
   setMoreInfo.innerText=getMoreInfo.value;
-  //do poprawy(trzeba pobrac zaznaczony radio button);
-  setInstitutionName.innerText="Wspierasz: " + getInstitutionName.innerHTML;
+
+
 
 
 }
