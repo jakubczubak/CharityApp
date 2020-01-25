@@ -14,9 +14,6 @@ public class Donation {
     private Long id;
     private int quantity;
     @ManyToMany
-    @JoinTable(name = "donations_categories",
-    joinColumns = @JoinColumn(name = "donations_id"),
-    inverseJoinColumns = @JoinColumn(name = "categories_id"))
     private List<Category> categories;
     @ManyToOne
     private Institution institution;
@@ -31,6 +28,16 @@ public class Donation {
     private Date pickUpTime;
     private String pickUpComment;
     private String phoneNumber;
+    @ManyToOne
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public String getPhoneNumber() {
         return phoneNumber;

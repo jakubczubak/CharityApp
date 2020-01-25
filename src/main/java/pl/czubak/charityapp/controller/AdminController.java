@@ -31,8 +31,8 @@ public class AdminController {
         model.addAttribute("fullName", currentUser.getFullName());
         model.addAttribute("donationAmount", donationService.donationAmount());
         model.addAttribute("AmountOfGoodPeople",userRepository.findAll().size());
-        model.addAttribute("AmountOfTrustedInstitution",institutionRepository.findAll());
-        model.addAttribute("AmountOfAdmins", userRepository.findByAdmin(true));
+        model.addAttribute("AmountOfTrustedInstitution",institutionRepository.findAll().size());
+        model.addAttribute("AmountOfAdmins", userRepository.findAllByisAdmin(true).size());
         return "adminPage";
     }
 }
