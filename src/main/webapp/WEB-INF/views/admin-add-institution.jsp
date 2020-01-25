@@ -57,7 +57,7 @@
       </div>
 
       <!-- Nav Item - Tables -->
- <%@include file="navIteam.jsp"%>>
+      <%@include file="navIteam.jsp"%>>
 
       <!-- Sidebar Toggler (Sidebar) -->
       <div class="text-center d-none d-md-inline">

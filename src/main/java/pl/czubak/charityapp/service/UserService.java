@@ -8,6 +8,7 @@ import pl.czubak.charityapp.repository.RoleRepository;
 import pl.czubak.charityapp.repository.UserRepository;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -24,13 +25,12 @@ public class UserService {
     }
 
     public void saveUser(User user){
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        user.setRePassword(user.getPassword());
+        String encodePassword = bCryptPasswordEncoder.encode(user.getPassword());
+        user.setPassword(encodePassword);
+        user.setRePassword(encodePassword);
+        Role userRole = roleRepository.findByRole("ADMIN");
+        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
         user.setEnabled(1);
-        Role role = roleRepository.findByRole("ADMIN");
-        Set<Role> roles = new HashSet<>();
-        roles.add(role);
-        user.setRoles(roles);
         user.setAdmin(true);
         userRepository.save(user);
     }

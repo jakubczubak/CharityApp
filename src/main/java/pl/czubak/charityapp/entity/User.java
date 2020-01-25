@@ -24,7 +24,6 @@ public class User {
     private boolean isAdmin;
 
 
-
     public boolean isAdmin() {
         return isAdmin;
     }

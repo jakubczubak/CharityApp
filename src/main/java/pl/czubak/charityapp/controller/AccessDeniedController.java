@@ -5,11 +5,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/403")
+public class AccessDeniedController {
 
     @GetMapping
-    public String getUserPage(){
-        return "adminPage";
+    public String getAccessDeniedPage(){
+        return "403";
     }
 }

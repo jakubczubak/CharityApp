@@ -2,6 +2,7 @@ package pl.czubak.charityapp.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import pl.czubak.charityapp.entity.Category;
 import pl.czubak.charityapp.entity.Donation;
@@ -12,6 +13,7 @@ import pl.czubak.charityapp.repository.DonationRepository;
 import pl.czubak.charityapp.repository.InstitutionRepository;
 import pl.czubak.charityapp.repository.UserRepository;
 
+import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.List;
 
@@ -32,8 +34,10 @@ public class DonationController {
     }
 
     @GetMapping
-    public String getDonationPage(Model model){
+    public String getDonationPage(Model model, Principal principal, HttpServletRequest request) {
 
+        User currentUser =  userRepository.findByEmail(principal.getName());
+        model.addAttribute("fullName", currentUser.getFullName());
         model.addAttribute("donation", new Donation());
         model.addAttribute("categories", categoryRepository.findAll());
         model.addAttribute("institutions", institutionRepository.findAll());

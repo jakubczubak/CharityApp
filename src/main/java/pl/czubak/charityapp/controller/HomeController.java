@@ -16,12 +16,10 @@ public class HomeController {
     private InstitutionRepository institutionRepository;
     private DonationRepository donationRepository;
     private DonationService donationService;
-    private CategoryRepository categoryRepository;
-    public HomeController(InstitutionRepository institutionRepository, DonationRepository donationRepository, DonationService donationService, CategoryRepository categoryRepository){
+    public HomeController(InstitutionRepository institutionRepository, DonationRepository donationRepository, DonationService donationService){
         this.donationRepository=donationRepository;
         this.institutionRepository=institutionRepository;
         this.donationService=donationService;
-        this.categoryRepository=categoryRepository;
     }
     @RequestMapping("/")
     public String index(Model model) {

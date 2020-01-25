@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pl.czubak.charityapp.entity.Donation;
+import pl.czubak.charityapp.entity.Institution;
 import pl.czubak.charityapp.entity.User;
 import pl.czubak.charityapp.repository.DonationRepository;
 import pl.czubak.charityapp.repository.InstitutionRepository;
@@ -13,6 +14,7 @@ import pl.czubak.charityapp.repository.UserRepository;
 import pl.czubak.charityapp.service.DonationService;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
@@ -35,5 +37,12 @@ public class AdminController {
         model.addAttribute("AmountOfTrustedInstitution",institutionRepository.findAll().size());
         model.addAttribute("AmountOfAdmins", userRepository.findAllByisAdmin(true).size());
         return "adminPage";
+    }
+
+    @GetMapping("/institutions")
+    public String getInstitutionsList(Model model){
+        List<Institution> institutions = institutionRepository.findAll();
+        model.addAttribute("institutions",institutions);
+        return "admin-add-institution";
     }
 }

@@ -30,6 +30,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/").permitAll()
                 .antMatchers("/registration").permitAll()
                 .antMatchers("/login").permitAll()
+                .antMatchers("/admin/**").hasAuthority("ADMIN")
+                .antMatchers("/donation/**").hasAuthority("USER")
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -37,9 +39,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/login").permitAll()
                 .passwordParameter("password")
                 .usernameParameter("email")
-                .defaultSuccessUrl("/donation")
                 .successHandler(myAuthenticationSuccessHandler())
                 .and().logout().logoutSuccessUrl("/")
+                .and()
+                .exceptionHandling().accessDeniedPage("/403")
                 .and()
                 .httpBasic();
 
