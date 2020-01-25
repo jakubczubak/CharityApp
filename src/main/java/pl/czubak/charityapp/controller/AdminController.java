@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import pl.czubak.charityapp.entity.Donation;
 import pl.czubak.charityapp.entity.Institution;
 import pl.czubak.charityapp.entity.User;
@@ -18,6 +19,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
+@SessionAttributes("fullName")
 public class AdminController {
 
     private UserRepository userRepository;
