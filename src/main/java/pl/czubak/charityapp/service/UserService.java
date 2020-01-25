@@ -1,5 +1,6 @@
 package pl.czubak.charityapp.service;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.czubak.charityapp.entity.Role;
 import pl.czubak.charityapp.entity.User;
@@ -13,15 +14,17 @@ import java.util.Set;
 @Service
 public class UserService {
 
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
     private RoleRepository roleRepository;
     private UserRepository userRepository;
-    public UserService(RoleRepository roleRepository, UserRepository userRepository){
+    public UserService(RoleRepository roleRepository, UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder){
         this.roleRepository=roleRepository;
         this.userRepository=userRepository;
+        this.bCryptPasswordEncoder=bCryptPasswordEncoder;
     }
 
     public void saveUser(User user){
-        user.setPassword("");
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setRePassword(user.getPassword());
         user.setEnabled(1);
         Role role = roleRepository.findByRole("USER");
