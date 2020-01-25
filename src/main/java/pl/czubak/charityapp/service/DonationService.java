@@ -20,4 +20,12 @@ public class DonationService {
             return 0;
         }
     }
+
+    public int numberOfGoodPeople(){
+        try {
+            return donationRepository.numberOfGoodPeople();
+        }catch (Exception e){
+            return 0;
+        }
+        }
 }

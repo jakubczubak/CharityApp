@@ -34,11 +34,11 @@ public class User {
     }
 
     public String getFullName() {
-        return fullName;
+        return firstName + " " + lastName;
     }
 
     public void setFullName(String fullName) {
-        this.fullName = firstName + " " + lastName;
+        this.fullName = fullName;
     }
 
     public Set<Role> getRoles() {

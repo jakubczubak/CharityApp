@@ -6,10 +6,13 @@ import org.springframework.web.bind.annotation.*;
 import pl.czubak.charityapp.entity.Category;
 import pl.czubak.charityapp.entity.Donation;
 import pl.czubak.charityapp.entity.Institution;
+import pl.czubak.charityapp.entity.User;
 import pl.czubak.charityapp.repository.CategoryRepository;
 import pl.czubak.charityapp.repository.DonationRepository;
 import pl.czubak.charityapp.repository.InstitutionRepository;
+import pl.czubak.charityapp.repository.UserRepository;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -19,11 +22,13 @@ public class DonationController {
     private CategoryRepository categoryRepository;
     private InstitutionRepository institutionRepository;
     private DonationRepository donationRepository;
+    private UserRepository userRepository;
 
-    public DonationController(CategoryRepository categoryRepository, InstitutionRepository institutionRepository, DonationRepository donationRepository){
+    public DonationController(CategoryRepository categoryRepository, InstitutionRepository institutionRepository, DonationRepository donationRepository, UserRepository userRepository){
         this.categoryRepository=categoryRepository;
         this.institutionRepository=institutionRepository;
         this.donationRepository=donationRepository;
+        this.userRepository=userRepository;
     }
 
     @GetMapping
@@ -37,7 +42,9 @@ public class DonationController {
 
 
     @PostMapping
-    public String processDonation(@RequestParam(value = "category", required = false) List<Category> categories, @RequestParam(value = "organization", required = false) Institution institution, @ModelAttribute Donation donation){
+    public String processDonation(@RequestParam(value = "category", required = false) List<Category> categories, @RequestParam(value = "organization", required = false) Institution institution, @ModelAttribute Donation donation, Principal principal){
+        User currentUser = userRepository.findByEmail(principal.getName());
+        donation.setUser(currentUser);
         donation.setInstitution(institution);
         donation.setCategories(categories);
         donationRepository.save(donation);

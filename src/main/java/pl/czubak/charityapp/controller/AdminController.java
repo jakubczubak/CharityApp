@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pl.czubak.charityapp.entity.Donation;
 import pl.czubak.charityapp.entity.User;
+import pl.czubak.charityapp.repository.DonationRepository;
 import pl.czubak.charityapp.repository.InstitutionRepository;
 import pl.czubak.charityapp.repository.UserRepository;
 import pl.czubak.charityapp.service.DonationService;
@@ -30,7 +31,7 @@ public class AdminController {
         User currentUser = userRepository.findByEmail(principal.getName());
         model.addAttribute("fullName", currentUser.getFullName());
         model.addAttribute("donationAmount", donationService.donationAmount());
-        model.addAttribute("AmountOfGoodPeople",userRepository.findAll().size());
+        model.addAttribute("AmountOfGoodPeople", donationService.numberOfGoodPeople());
         model.addAttribute("AmountOfTrustedInstitution",institutionRepository.findAll().size());
         model.addAttribute("AmountOfAdmins", userRepository.findAllByisAdmin(true).size());
         return "adminPage";
