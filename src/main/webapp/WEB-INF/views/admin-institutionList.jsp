@@ -121,7 +121,7 @@
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Lista zaufanych instytucji:</h1>
-            <a href="#" class="d-none d-sm-inline-block btn  btn-success shadow-sm"><i class="fas fa-plus"></i>   Dodaj instytucje</a>
+            <a href="/admin/institution/add" class="d-none d-sm-inline-block btn  btn-success shadow-sm"><i class="fas fa-plus"></i>   Dodaj instytucje</a>
           </div>
 
 
@@ -143,10 +143,10 @@
                 <td>Fundacja "${institution.name}"</td>
                 <td>${institution.description}</td>
                 <td>
-                  <a href="">
+                  <a href="/admin/institution/edit/${institution.id}">
                     <button type="button" class="btn btn-primary"><i class="fas fa-edit"></i></button>
                   </a>
-                  <a href="">
+                  <a href="/admin/institution/remove/${institution.id}">
                     <button type="button" class="btn btn-danger"><i  class="fas fa-trash-alt"></i></button>
                   </a>
                 </td>

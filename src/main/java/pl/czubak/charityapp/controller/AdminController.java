@@ -2,14 +2,9 @@ package pl.czubak.charityapp.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
-import pl.czubak.charityapp.entity.Donation;
+import org.springframework.web.bind.annotation.*;
 import pl.czubak.charityapp.entity.Institution;
 import pl.czubak.charityapp.entity.User;
-import pl.czubak.charityapp.repository.DonationRepository;
 import pl.czubak.charityapp.repository.InstitutionRepository;
 import pl.czubak.charityapp.repository.UserRepository;
 import pl.czubak.charityapp.service.DonationService;
@@ -45,6 +40,38 @@ public class AdminController {
     public String getInstitutionsList(Model model){
         List<Institution> institutions = institutionRepository.findAll();
         model.addAttribute("institutions",institutions);
-        return "admin-add-institution";
+        return "admin-institutionList";
+    }
+
+    @GetMapping("/institution/remove/{id}")
+    public String deleteInstitutionByID(@PathVariable Long id){
+        institutionRepository.delete(institutionRepository.getOne(id));
+        return "redirect:/admin/institutions";
+    }
+
+    @GetMapping("/institution/add")
+        public String addInstitution(Model model){
+        model.addAttribute("institution", new Institution());
+            return "institution-add-page";
+        }
+
+     @PostMapping("/institution/add")
+    public String processAddInstitution(@ModelAttribute Institution institution){
+        institutionRepository.save(institution);
+         return "redirect:/admin/institutions";
+
+     }
+
+     @GetMapping("/institution/edit/{id}")
+    public String editInstitution(@PathVariable Long id, Model model){
+        Institution currentInstitution = institutionRepository.findById(id).get();
+        model.addAttribute("institution", currentInstitution);
+         return "institution-edit-page";
+     }
+
+    @PostMapping("/institution/edit/")
+    public String processEditInstitution(@ModelAttribute Institution institution){
+        institutionRepository.save(institution);
+        return "redirect:/admin/institutions";
     }
 }
