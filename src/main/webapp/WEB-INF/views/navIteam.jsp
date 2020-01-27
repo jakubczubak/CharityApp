@@ -6,7 +6,7 @@
 </li>
 
 <li class="nav-item">
-  <a class="nav-link" href="tables.html">
+  <a class="nav-link" href="/admin/list">
     <i class="fas fa-user-shield"></i>
     <span>Administratorzy</span></a>
 </li>

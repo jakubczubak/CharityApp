@@ -123,4 +123,43 @@ public class AdminController {
         userRepository.save(userToBlock);
         return "redirect:/admin/user/block/list";
     }
+
+    @GetMapping("/list")
+    public String getAdminsList(Model model){
+        List<User> adminsList = userRepository.findAllByisAdminAndEnabled(true,1);
+        model.addAttribute("adminsList", adminsList);
+        return "admin-adminList";
+    }
+
+    @GetMapping("/add")
+    public String addAdmin(Model model){
+        model.addAttribute("admin", new User());
+        return "admin-add-page";
+    }
+
+    @PostMapping("/add")
+    public String processAddAdmin(@ModelAttribute(name = "admin") User admin){
+        userService.saveAdmin(admin);
+        return "redirect:/admin/list";
+    }
+
+    @GetMapping("/remove/{id}")
+    public String removeAdmin(@PathVariable Long id){
+        userRepository.delete(userRepository.getOne(id));
+        return "redirect:/admin/list";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String editAdmin(@PathVariable Long id, Model model){
+        User currentAdmin = userRepository.findById(id).get();
+        model.addAttribute("admin", currentAdmin);
+        return "admin-edit-page";
+    }
+
+    @PostMapping("/edit")
+    public String processEditAdmin(@ModelAttribute(name = "admin") User admin){
+        userService.saveAdmin(admin);
+        return "admin-edit-page";
+    }
+
 }

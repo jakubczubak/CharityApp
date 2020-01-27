@@ -2,15 +2,14 @@ package pl.czubak.charityapp.service;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import pl.czubak.charityapp.entity.Role;
 import pl.czubak.charityapp.entity.User;
 import pl.czubak.charityapp.repository.RoleRepository;
 import pl.czubak.charityapp.repository.UserRepository;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class UserService {
@@ -35,6 +34,17 @@ public class UserService {
         userRepository.save(user);
     }
 
+    public void saveAdmin(User admin){
+        String encodePassword = bCryptPasswordEncoder.encode(admin.getPassword());
+        admin.setPassword(encodePassword);
+        admin.setRePassword(encodePassword);
+        Role adminRole = roleRepository.findByRole("ADMIN");
+        admin.setRoles(new HashSet<Role>(Arrays.asList(adminRole)));
+        admin.setEnabled(1);
+        admin.setAdmin(true);
+        userRepository.save(admin);
+    }
+
     public void updateUser(User user){
         User userBeforeUpdate = userRepository.findById(user.getId()).get();
         user.setEnabled(userBeforeUpdate.getEnabled());
@@ -45,4 +55,9 @@ public class UserService {
 
         userRepository.save(user);
     }
+
+
+
+
+
 }
