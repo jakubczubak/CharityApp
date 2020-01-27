@@ -11,7 +11,7 @@
     <span>Administratorzy</span></a>
 </li>
 <li class="nav-item">
-  <a class="nav-link" href="tables.html">
+  <a class="nav-link" href="/admin/users">
     <i class="fas fa-users"></i>
     <span>Użytkownicy</span></a>
 </li>

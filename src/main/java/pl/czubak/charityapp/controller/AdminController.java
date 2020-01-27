@@ -1,5 +1,6 @@
 package pl.czubak.charityapp.controller;
 
+import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -8,6 +9,7 @@ import pl.czubak.charityapp.entity.User;
 import pl.czubak.charityapp.repository.InstitutionRepository;
 import pl.czubak.charityapp.repository.UserRepository;
 import pl.czubak.charityapp.service.DonationService;
+import pl.czubak.charityapp.service.UserService;
 
 import java.security.Principal;
 import java.util.List;
@@ -18,12 +20,14 @@ import java.util.List;
 public class AdminController {
 
     private UserRepository userRepository;
+    private UserService userService;
     private DonationService donationService;
     private InstitutionRepository institutionRepository;
-    public AdminController(UserRepository userRepository, DonationService donationService, InstitutionRepository institutionRepository){
+    public AdminController(UserRepository userRepository, DonationService donationService, InstitutionRepository institutionRepository, UserService userService){
         this.userRepository=userRepository;
         this.donationService=donationService;
         this.institutionRepository=institutionRepository;
+        this.userService=userService;
     }
     @GetMapping
     public String getAdminPage(Model model, Principal principal){
@@ -32,7 +36,7 @@ public class AdminController {
         model.addAttribute("donationAmount", donationService.donationAmount());
         model.addAttribute("AmountOfGoodPeople", donationService.numberOfGoodPeople());
         model.addAttribute("AmountOfTrustedInstitution",institutionRepository.findAll().size());
-        model.addAttribute("AmountOfAdmins", userRepository.findAllByisAdmin(true).size());
+        model.addAttribute("AmountOfAdmins", userRepository.findAllByisAdminAndEnabled(true,1).size());
         return "adminPage";
     }
 
@@ -73,5 +77,50 @@ public class AdminController {
     public String processEditInstitution(@ModelAttribute Institution institution){
         institutionRepository.save(institution);
         return "redirect:/admin/institutions";
+     }
+
+     @GetMapping("/users")
+    public String getUsersList(Model model){
+        model.addAttribute("users", userRepository.findAllByisAdminAndEnabled(true,1));
+        return "admin-userList";
+     }
+
+    @GetMapping("/user/remove/{id}")
+    public String deleteUserByID(@PathVariable Long id){
+        userRepository.delete(userRepository.getOne(id));
+        return "redirect:/admin/users";
+    }
+
+    @GetMapping("/user/edit/{id}")
+    public String editUser(@PathVariable Long id, Model model){
+        User currentUser = userRepository.findById(id).get();
+        model.addAttribute("user", currentUser);
+        return "user-edit-page";
+    }
+
+    @PostMapping("/user/edit")
+    public String editUser(@ModelAttribute User user){
+        userService.updateUser(user);
+        return "redirect:/admin/users";
+    }
+    @GetMapping("/user/block/{id}")
+    public String blockUser(@PathVariable Long id){
+        User userToBlock = userRepository.findById(id).get();
+        userToBlock.setEnabled(0);
+        userRepository.save(userToBlock);
+        return "redirect:/admin/users";
+    }
+
+    @GetMapping("/user/block/list")
+    public String getBanUsersList(Model model){
+        model.addAttribute("banUsers", userRepository.findAllByisAdminAndEnabled(true,0));
+        return "admin-blocked-users-page";
+    }
+    @GetMapping("/user/unblock/{id}")
+    public String unblockUser(@PathVariable Long id) {
+        User userToBlock = userRepository.findById(id).get();
+        userToBlock.setEnabled(1);
+        userRepository.save(userToBlock);
+        return "redirect:/admin/user/block/list";
     }
 }

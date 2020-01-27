@@ -34,4 +34,15 @@ public class UserService {
         user.setAdmin(true);
         userRepository.save(user);
     }
+
+    public void updateUser(User user){
+        User userBeforeUpdate = userRepository.findById(user.getId()).get();
+        user.setEnabled(userBeforeUpdate.getEnabled());
+        user.setAdmin(userBeforeUpdate.isAdmin());
+        user.setRePassword(userBeforeUpdate.getRePassword());
+        user.setPassword(userBeforeUpdate.getPassword());
+        user.setRoles(userBeforeUpdate.getRoles());
+
+        userRepository.save(user);
+    }
 }
