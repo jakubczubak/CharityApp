@@ -27,10 +27,10 @@ public class UserService {
         String encodePassword = bCryptPasswordEncoder.encode(user.getPassword());
         user.setPassword(encodePassword);
         user.setRePassword(encodePassword);
-        Role userRole = roleRepository.findByRole("ADMIN");
+        Role userRole = roleRepository.findByRole("USER");
         user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
         user.setEnabled(1);
-        user.setAdmin(true);
+        user.setAdmin(false);
         userRepository.save(user);
     }
 

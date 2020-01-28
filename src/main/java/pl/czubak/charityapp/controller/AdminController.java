@@ -1,9 +1,9 @@
 package pl.czubak.charityapp.controller;
 
-import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
 import pl.czubak.charityapp.entity.Donation;
 import pl.czubak.charityapp.entity.Institution;
 import pl.czubak.charityapp.entity.Status;
@@ -45,14 +45,14 @@ public class AdminController {
         model.addAttribute("AmountOfGoodPeople", donationService.numberOfGoodPeople());
         model.addAttribute("AmountOfTrustedInstitution",institutionRepository.findAll().size());
         model.addAttribute("AmountOfAdmins", userRepository.findAllByisAdminAndEnabled(true,1).size());
-        return "adminPage";
+        return "admin-main-page";
     }
 
     @GetMapping("/institutions")
     public String getInstitutionsList(Model model){
         List<Institution> institutions = institutionRepository.findAll();
         model.addAttribute("institutions",institutions);
-        return "admin-institutionList";
+        return "admin-institution-list";
     }
 
     @GetMapping("/institution/remove/{id}")
@@ -64,7 +64,7 @@ public class AdminController {
     @GetMapping("/institution/add")
         public String addInstitution(Model model){
         model.addAttribute("institution", new Institution());
-            return "institution-add-page";
+            return "admin-institution-add-page";
         }
 
      @PostMapping("/institution/add")
@@ -78,7 +78,7 @@ public class AdminController {
     public String editInstitution(@PathVariable Long id, Model model){
         Institution currentInstitution = institutionRepository.findById(id).get();
         model.addAttribute("institution", currentInstitution);
-         return "institution-edit-page";
+         return "admin-institution-edit-page";
      }
 
     @PostMapping("/institution/edit/")
@@ -90,7 +90,7 @@ public class AdminController {
      @GetMapping("/users")
     public String getUsersList(Model model){
         model.addAttribute("users", userRepository.findAllByisAdminAndEnabled(true,1));
-        return "admin-userList";
+        return "admin-user-list";
      }
 
     @GetMapping("/user/remove/{id}")
@@ -103,7 +103,7 @@ public class AdminController {
     public String editUser(@PathVariable Long id, Model model){
         User currentUser = userRepository.findById(id).get();
         model.addAttribute("user", currentUser);
-        return "user-edit-page";
+        return "admin-user-edit-page";
     }
 
     @PostMapping("/user/edit")
@@ -136,7 +136,7 @@ public class AdminController {
     public String getAdminsList(Model model){
         List<User> adminsList = userRepository.findAllByisAdminAndEnabled(true,1);
         model.addAttribute("adminsList", adminsList);
-        return "admin-adminList";
+        return "admin-admin-list";
     }
 
     @GetMapping("/add")
@@ -160,13 +160,15 @@ public class AdminController {
     @GetMapping("/edit/{id}")
     public String editAdmin(@PathVariable Long id, Model model){
         User currentAdmin = userRepository.findById(id).get();
+        model.addAttribute("fullName", currentAdmin.getFullName());
         model.addAttribute("admin", currentAdmin);
         return "admin-edit-page";
     }
 
     @PostMapping("/edit")
-    public String processEditAdmin(@ModelAttribute(name = "admin") User admin){
+    public String processEditAdmin(@ModelAttribute(name = "admin") User admin, WebRequest request){
         userService.saveAdmin(admin);
+        request.removeAttribute("user", WebRequest.SCOPE_SESSION);
         return "admin-edit-page";
     }
 
@@ -174,7 +176,7 @@ public class AdminController {
     public String getDonationsList(Model model){
         List<Donation> donations = donationRepository.findAll();
         model.addAttribute("donations", donations);
-        return "admin-donationList";
+        return "admin-donation-list";
     }
 
     @GetMapping("/donation/{id}")
@@ -183,7 +185,7 @@ public class AdminController {
         List<Status> statusList = statusRepository.findAll();
         model.addAttribute("statusList", statusList);
         model.addAttribute("donation",currentDonation);
-        return "donation-details";
+        return "admin-donation-details";
     }
 
     @PostMapping("/donation/{id}")
