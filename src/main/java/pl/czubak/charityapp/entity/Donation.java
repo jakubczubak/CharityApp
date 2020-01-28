@@ -30,8 +30,16 @@ public class Donation {
     private String phoneNumber;
     @ManyToOne
     private User user;
-    @Transient
-    private String
+    @ManyToOne
+    private Status status;
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
 
     public User getUser() {
         return user;

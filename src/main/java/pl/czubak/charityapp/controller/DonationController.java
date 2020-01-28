@@ -8,10 +8,7 @@ import pl.czubak.charityapp.entity.Category;
 import pl.czubak.charityapp.entity.Donation;
 import pl.czubak.charityapp.entity.Institution;
 import pl.czubak.charityapp.entity.User;
-import pl.czubak.charityapp.repository.CategoryRepository;
-import pl.czubak.charityapp.repository.DonationRepository;
-import pl.czubak.charityapp.repository.InstitutionRepository;
-import pl.czubak.charityapp.repository.UserRepository;
+import pl.czubak.charityapp.repository.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
@@ -26,12 +23,14 @@ public class DonationController {
     private InstitutionRepository institutionRepository;
     private DonationRepository donationRepository;
     private UserRepository userRepository;
+    private StatusRepository statusRepository;
 
-    public DonationController(CategoryRepository categoryRepository, InstitutionRepository institutionRepository, DonationRepository donationRepository, UserRepository userRepository){
+    public DonationController(CategoryRepository categoryRepository, InstitutionRepository institutionRepository, DonationRepository donationRepository, UserRepository userRepository, StatusRepository statusRepository){
         this.categoryRepository=categoryRepository;
         this.institutionRepository=institutionRepository;
         this.donationRepository=donationRepository;
         this.userRepository=userRepository;
+        this.statusRepository=statusRepository;
     }
 
     @GetMapping
@@ -52,6 +51,7 @@ public class DonationController {
         donation.setUser(currentUser);
         donation.setInstitution(institution);
         donation.setCategories(categories);
+        donation.setStatus(statusRepository.findByName("Zlozone"));
         donationRepository.save(donation);
         return "form-confirmation";
     }

@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -120,55 +121,64 @@
 
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Lista darowizn:</h1>
+            <h1 class="h3 mb-0 text-gray-800">Szczegóły darowizny:</h1>
+
+            <c:if test="${donation.status.name == 'Zlozone'}">
+              <button type="button" title="Złożone" class="btn btn-warning">Złożone</button>
+            </c:if>
+            <c:if test="${donation.status.name == 'Odebrane'}">
+              <button type="button" title="Odebrane" class="btn btn-primary">Odebrane</button>
+            </c:if>
+            <c:if test="${donation.status.name == 'Przekazane'}">
+              <button type="button"  title="Przekazane" class="btn btn-success">Przekazane</button>
+            </c:if>
           </div>
 
 
 
           <div class="row">
-            <table class="table table-hover">
-              <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Kategoria darowizny:</th>
-                <th scope="col">Ilość 60l worków:</th>
-                <th scope="col">Wspierana fundacja:</th>
-                <th scope="col">Status darowizny:</th>
-                <th scope="col">Szczegóły:</th>
-              </tr>
-              </thead>
-              <tbody>
-              <c:forEach items="${donations}" var="donation" varStatus="index">
-              <tr>
-                <th scope="row">${index.count}</th>
-                <td>
-                  <c:forEach items="${donation.categories}" var="category">
-                    -${category.name}<br>
-                  </c:forEach>
-                </td>
-                <td>${donation.quantity}x</td>
-                <td>"${donation.institution.name}"</td>
-                <td>
-                  <c:if test="${donation.status.name == 'Zlozone'}">
-                    <button type="button" title="Złożone" class="btn btn-warning">Złożone</button>
-                  </c:if>
-                  <c:if test="${donation.status.name == 'Odebrane'}">
-                    <button type="button" title="Odebrane" class="btn btn-primary">Odebrane</button>
-                  </c:if>
-                  <c:if test="${donation.status.name == 'Przekazane'}">
-                    <button type="button"  title="Przekazane" class="btn btn-success">Przekazane</button>
-                  </c:if>
-                </td>
-                <td>
-                  <a href="/admin/donation/${donation.id}">
-                    <button type="button" class="btn btn-primary"><i class="fas fa-info-circle"></i></button>
-                  </a>
-
-                </td>
-              </tr>
+            <div class="card-body">
+              <h5 style="color: black">Kategoria darowizny:</h5>
+              <c:forEach items="${donation.categories}" var="category">
+                -${category.name}<br>
               </c:forEach>
-              </tbody>
-            </table>
+              <h5 style="color: black">Ilość oddanych worków:</h5>
+              ${donation.quantity}x<br>
+              <h5 style="color: black">Informacje nt. wspieranej instytucji:</h5>
+              Fundacja: "${donation.institution.name}"<br>
+              Cel i misja: ${donation.institution.description}<br>
+            </div>
+            <div  class="card-body">
+              <h5 style="color: black">Dane darczyńcy:</h5>
+              ${donation.user.firstName}<br>
+              ${donation.user.lastName}<br>
+              ${donation.user.email}<br>
+              ${donation.phoneNumber}<br>
+            </div>
+            <div class="card-body">
+              <h5 style="color: black">Adres odbioru darowizny:</h5>
+              ${donation.city}<br>
+              ${donation.zipCode}<br>
+              ${donation.street}<br>
+              <h5 style="color: black">Termin odbioru darowizny:</h5>
+              ${donation.pickUpTime}<br>
+              ${donation.pickUpDate}
+            </div>
+
+          </div>
+          <div class="row">
+            <form:form method="post" modelAttribute="donation" action="/admin/donation/${donation.id}">
+              <div class="form-group">
+                <label for="exampleFormControlSelect1">Zmień status darowizny:</label>
+                <select name="status" class="form-control" id="exampleFormControlSelect1">
+                  <c:forEach items="${statusList}" var="status">
+                    <option  value="${status.id}">${status.name}</option>
+                  </c:forEach>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-primary">Zapisz</button>
+
+            </form:form>
           </div>
 
 

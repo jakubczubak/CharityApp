@@ -6,9 +6,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.czubak.charityapp.entity.Donation;
 import pl.czubak.charityapp.entity.Institution;
+import pl.czubak.charityapp.entity.Status;
 import pl.czubak.charityapp.entity.User;
 import pl.czubak.charityapp.repository.DonationRepository;
 import pl.czubak.charityapp.repository.InstitutionRepository;
+import pl.czubak.charityapp.repository.StatusRepository;
 import pl.czubak.charityapp.repository.UserRepository;
 import pl.czubak.charityapp.service.DonationService;
 import pl.czubak.charityapp.service.UserService;
@@ -26,12 +28,14 @@ public class AdminController {
     private DonationService donationService;
     private InstitutionRepository institutionRepository;
     private DonationRepository donationRepository;
-    public AdminController(UserRepository userRepository, DonationService donationService, InstitutionRepository institutionRepository, UserService userService, DonationRepository donationRepository){
+    private StatusRepository statusRepository;
+    public AdminController(UserRepository userRepository, DonationService donationService, InstitutionRepository institutionRepository, UserService userService, DonationRepository donationRepository, StatusRepository statusRepository){
         this.userRepository=userRepository;
         this.donationService=donationService;
         this.institutionRepository=institutionRepository;
         this.userService=userService;
         this.donationRepository=donationRepository;
+        this.statusRepository=statusRepository;
     }
     @GetMapping
     public String getAdminPage(Model model, Principal principal){
@@ -171,6 +175,23 @@ public class AdminController {
         List<Donation> donations = donationRepository.findAll();
         model.addAttribute("donations", donations);
         return "admin-donationList";
+    }
+
+    @GetMapping("/donation/{id}")
+    public String getDonationDetails(@PathVariable Long id, Model model){
+        Donation currentDonation = donationRepository.findById(id).get();
+        List<Status> statusList = statusRepository.findAll();
+        model.addAttribute("statusList", statusList);
+        model.addAttribute("donation",currentDonation);
+        return "donation-details";
+    }
+
+    @PostMapping("/donation/{id}")
+    public String changeDonationStatus(@RequestParam(name = "status", required = false) Status status, @PathVariable Long id){
+        Donation currentDonation = donationRepository.findById(id).get();
+        currentDonation.setStatus(status);
+        donationRepository.save(currentDonation);
+        return "redirect:/admin/donation/" + currentDonation.getId();
     }
 
 }
