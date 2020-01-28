@@ -13,7 +13,7 @@ public class Donation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private int quantity;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Category> categories;
     @ManyToOne
     private Institution institution;
@@ -30,6 +30,8 @@ public class Donation {
     private String phoneNumber;
     @ManyToOne
     private User user;
+    @Transient
+    private String
 
     public User getUser() {
         return user;

@@ -4,8 +4,10 @@ import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import pl.czubak.charityapp.entity.Donation;
 import pl.czubak.charityapp.entity.Institution;
 import pl.czubak.charityapp.entity.User;
+import pl.czubak.charityapp.repository.DonationRepository;
 import pl.czubak.charityapp.repository.InstitutionRepository;
 import pl.czubak.charityapp.repository.UserRepository;
 import pl.czubak.charityapp.service.DonationService;
@@ -23,11 +25,13 @@ public class AdminController {
     private UserService userService;
     private DonationService donationService;
     private InstitutionRepository institutionRepository;
-    public AdminController(UserRepository userRepository, DonationService donationService, InstitutionRepository institutionRepository, UserService userService){
+    private DonationRepository donationRepository;
+    public AdminController(UserRepository userRepository, DonationService donationService, InstitutionRepository institutionRepository, UserService userService, DonationRepository donationRepository){
         this.userRepository=userRepository;
         this.donationService=donationService;
         this.institutionRepository=institutionRepository;
         this.userService=userService;
+        this.donationRepository=donationRepository;
     }
     @GetMapping
     public String getAdminPage(Model model, Principal principal){
@@ -160,6 +164,13 @@ public class AdminController {
     public String processEditAdmin(@ModelAttribute(name = "admin") User admin){
         userService.saveAdmin(admin);
         return "admin-edit-page";
+    }
+
+    @GetMapping("/donations")
+    public String getDonationsList(Model model){
+        List<Donation> donations = donationRepository.findAll();
+        model.addAttribute("donations", donations);
+        return "admin-donationList";
     }
 
 }

@@ -16,7 +16,7 @@
     <span>Użytkownicy</span></a>
 </li>
 <li class="nav-item">
-  <a class="nav-link" href="tables.html">
+  <a class="nav-link" href="/admin/donations">
     <i class="fas fa-hand-holding-heart"></i>
     <span>Darowizny</span></a>
 </li>
