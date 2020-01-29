@@ -120,7 +120,11 @@
                     <h1 class="h3 mb-0 text-gray-800">Lista zablokowanych użytkowników:</h1>
                 </div>
 
-
+                <c:if test="${param.successunblock!=null}">
+                    <div class="alert alert-success text-center" role="alert">
+                        Pomyślnie odblokowałeś użytkownika!
+                    </div>
+                </c:if>
                 <div class="row">
                     <table class="table table-hover">
                         <thead>

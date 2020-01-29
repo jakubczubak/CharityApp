@@ -122,7 +122,21 @@
                             class="fas fa-plus"></i> Dodaj instytucje</a>
                 </div>
 
-
+                <c:if test="${param.successremove!=null}">
+                    <div class="alert alert-success text-center" role="alert">
+                        Pomyślnie usunąłeś instytucję!
+                    </div>
+                </c:if>
+                <c:if test="${param.successadd!=null}">
+                    <div class="alert alert-success text-center" role="alert">
+                        Pomyślnie dodałeś nową instytucję!
+                    </div>
+                </c:if>
+                <c:if test="${param.successedit!=null}">
+                    <div class="alert alert-success text-center" role="alert">
+                        Pomyślnie edytowałeś dane dotyczące instytucji!
+                    </div>
+                </c:if>
                 <div class="row">
                     <table class="table table-hover">
                         <thead>

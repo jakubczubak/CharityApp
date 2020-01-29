@@ -12,7 +12,7 @@
 </head>
 <body>
 <%@include file="header.jsp" %>
->
+
 
 <section class="login-page">
     <h2>Zaloguj się</h2>

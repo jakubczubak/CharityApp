@@ -28,12 +28,18 @@ public class UserController {
   private DonationRepository donationRepository;
   private CategoryRepository categoryRepository;
   private InstitutionRepository institutionRepository;
-  public UserController(UserRepository userRepository, UserService userService, DonationRepository donationRepository, CategoryRepository categoryRepository, InstitutionRepository institutionRepository) {
+
+  public UserController(
+      UserRepository userRepository,
+      UserService userService,
+      DonationRepository donationRepository,
+      CategoryRepository categoryRepository,
+      InstitutionRepository institutionRepository) {
     this.userRepository = userRepository;
     this.userService = userService;
-    this.donationRepository=donationRepository;
-    this.categoryRepository=categoryRepository;
-    this.institutionRepository=institutionRepository;
+    this.donationRepository = donationRepository;
+    this.categoryRepository = categoryRepository;
+    this.institutionRepository = institutionRepository;
   }
 
   @GetMapping("/edit")
@@ -74,53 +80,53 @@ public class UserController {
     }
   }
 
-
   @GetMapping("/donations")
-  public String getUserDonationsList(Model model, HttpSession ses){
+  public String getUserDonationsList(Model model, HttpSession ses) {
     Long sesID = (Long) ses.getAttribute("id");
-    List<Donation> userDonationList = donationRepository.findAllByisArchivedAndUserId(false,sesID);
+    List<Donation> userDonationList = donationRepository.findAllByisArchivedAndUserId(false, sesID);
     model.addAttribute("userDonationList", userDonationList);
     return "user-donation-list-page";
   }
 
   @GetMapping("/donation/archive/{id}")
-  public String archiveDonation(@PathVariable Long id){
+  public String archiveDonation(@PathVariable Long id) {
     Donation donation = donationRepository.findById(id).get();
     donation.setArchived(true);
     donationRepository.save(donation);
-    return "redirect:/user/donations";
+    return "redirect:/user/donations?successarchive";
   }
 
   @GetMapping("/donations/archived/list")
-  public String getArchivedDonationList(Model model, HttpSession ses){
+  public String getArchivedDonationList(Model model, HttpSession ses) {
     Long sesID = (Long) ses.getAttribute("id");
-    List<Donation> archivedDonationList = donationRepository.findAllByisArchivedAndUserId(true,sesID);
+    List<Donation> archivedDonationList =
+        donationRepository.findAllByisArchivedAndUserId(true, sesID);
     model.addAttribute("archivedDonationList", archivedDonationList);
     return "user-archived-donation-list-page";
   }
 
   @GetMapping("/donation/remove/{id}")
-  public String removeDonationByID(@PathVariable Long id){
+  public String removeDonationByID(@PathVariable Long id) {
     Donation currentDonation = donationRepository.findById(id).get();
-    if(currentDonation.getStatus().getName().equals("Zlozone")){
+    if (currentDonation.getStatus().getName().equals("Zlozone")) {
       donationRepository.delete(currentDonation);
       return "redirect:/user/donations?success";
-    }else{
+    } else {
       return "redirect:/user/donations?error";
     }
   }
 
   @GetMapping("/donation/details/{id}")
-  public String getDonationDetails(@PathVariable Long id, Model model){
+  public String getDonationDetails(@PathVariable Long id, Model model) {
     Donation currentDonation = donationRepository.findById(id).get();
     model.addAttribute("currentDonation", currentDonation);
     return "user-donation-details-page";
   }
 
   @GetMapping("/donation/edit/{id}")
-  public String editDonation(@PathVariable Long id, Model model, Principal principal){
+  public String editDonation(@PathVariable Long id, Model model, Principal principal) {
     Donation currentDonation = donationRepository.findById(id).get();
-    if(currentDonation.getStatus().getName().equals("Zlozone")){
+    if (currentDonation.getStatus().getName().equals("Zlozone")) {
       User currentUser = userRepository.findByEmail(principal.getName());
       model.addAttribute("donation", currentDonation);
       model.addAttribute("categories", categoryRepository.findAll());
@@ -128,7 +134,7 @@ public class UserController {
       model.addAttribute("fullName", currentUser.getFullName());
       model.addAttribute("id", currentUser.getId());
       return "form";
-    }else {
+    } else {
       return "redirect:/user/donations?fail";
     }
   }

@@ -60,7 +60,7 @@
                 </c:if>
             </td>
             <td>
-                <a href="/admin/donation/${donation.id}">
+                <a href="/user/donation/details/${donation.id}">
                     <button type="button" title="szczegóły" class="btn btn-primary"><i class="fas fa-info-circle"></i>
                     </button>
                 </a>

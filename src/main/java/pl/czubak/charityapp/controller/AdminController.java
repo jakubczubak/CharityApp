@@ -66,7 +66,7 @@ public class AdminController {
   @GetMapping("/institution/remove/{id}")
   public String deleteInstitutionByID(@PathVariable Long id) {
     institutionRepository.delete(institutionRepository.getOne(id));
-    return "redirect:/admin/institutions";
+    return "redirect:/admin/institutions?successremove";
   }
 
   @GetMapping("/institution/add")
@@ -78,7 +78,7 @@ public class AdminController {
   @PostMapping("/institution/add")
   public String processAddInstitution(@ModelAttribute Institution institution) {
     institutionRepository.save(institution);
-    return "redirect:/admin/institutions";
+    return "redirect:/admin/institutions?successadd";
   }
 
   @GetMapping("/institution/edit/{id}")
@@ -91,7 +91,7 @@ public class AdminController {
   @PostMapping("/institution/edit/")
   public String processEditInstitution(@ModelAttribute Institution institution) {
     institutionRepository.save(institution);
-    return "redirect:/admin/institutions";
+    return "redirect:/admin/institutions?successedit";
   }
 
   @GetMapping("/users")
@@ -103,7 +103,7 @@ public class AdminController {
   @GetMapping("/user/remove/{id}")
   public String deleteUserByID(@PathVariable Long id) {
     userRepository.delete(userRepository.getOne(id));
-    return "redirect:/admin/users";
+    return "redirect:/admin/users?successremove";
   }
 
   @GetMapping("/user/edit/{id}")
@@ -116,7 +116,7 @@ public class AdminController {
   @PostMapping("/user/edit")
   public String editUser(@ModelAttribute User user) {
     userService.updateUser(user);
-    return "redirect:/admin/users";
+    return "redirect:/admin/users?successedit";
   }
 
   @GetMapping("/user/block/{id}")
@@ -124,7 +124,7 @@ public class AdminController {
     User userToBlock = userRepository.findById(id).get();
     userToBlock.setEnabled(0);
     userRepository.save(userToBlock);
-    return "redirect:/admin/users";
+    return "redirect:/admin/users?successblock";
   }
 
   @GetMapping("/user/block/list")
@@ -138,7 +138,7 @@ public class AdminController {
     User userToBlock = userRepository.findById(id).get();
     userToBlock.setEnabled(1);
     userRepository.save(userToBlock);
-    return "redirect:/admin/user/block/list";
+    return "redirect:/admin/user/block/list?successunblock";
   }
 
   @GetMapping("/list")
@@ -157,13 +157,21 @@ public class AdminController {
   @PostMapping("/add")
   public String processAddAdmin(@ModelAttribute(name = "admin") User admin) {
     userService.saveAdmin(admin);
-    return "redirect:/admin/list";
+    return "redirect:/admin/list?successadd";
   }
 
   @GetMapping("/remove/{id}")
-  public String removeAdmin(@PathVariable Long id) {
-    userRepository.delete(userRepository.getOne(id));
-    return "redirect:/admin/list";
+  public String removeAdmin(@PathVariable Long id, Principal principal) {
+    User currentAdmin = userRepository.findByEmail(principal.getName());
+    List<User> adminList = userRepository.findAllByisAdminAndEnabled(true, 1);
+    if ((!currentAdmin.getId().equals(id)) && (adminList.size() > 1)) {
+
+      userRepository.delete(userRepository.getOne(id));
+      return "redirect:/admin/list?successremove";
+
+    } else {
+      return "redirect:/admin/list?error";
+    }
   }
 
   @GetMapping("/edit/{id}")

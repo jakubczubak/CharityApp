@@ -122,7 +122,21 @@
                             class="fas fa-user-shield"></i> Dodaj administratora:</a>
                 </div>
 
-
+                <c:if test="${param.error!=null}">
+                    <div class="alert alert-danger text-center" role="alert">
+                        Nie można usunąc swojego konta!
+                    </div>
+                </c:if>
+                <c:if test="${param.successremove!=null}">
+                    <div class="alert alert-success text-center" role="alert">
+                        Pomyślnie usunąłeś administratora!
+                    </div>
+                </c:if>
+                <c:if test="${param.successadd!=null}">
+                    <div class="alert alert-success text-center" role="alert">
+                        Pomyślnie dodałeś administratora!
+                    </div>
+                </c:if>
                 <div class="row">
                     <table class="table table-hover">
                         <thead>

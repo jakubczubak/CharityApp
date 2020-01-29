@@ -17,5 +17,5 @@ public interface DonationRepository extends JpaRepository<Donation, Long> {
   @Query("select count (distinct d.user.id) from Donation d")
   int numberOfGoodPeople();
 
-  List<Donation> findAllByisArchivedAndUserId (boolean isArchived, Long UserId);
+  List<Donation> findAllByisArchivedAndUserId(boolean isArchived, Long UserId);
 }

@@ -17,7 +17,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/donation")
-@SessionAttributes({"fullName","id"})
+@SessionAttributes({"fullName", "id"})
 public class DonationController {
 
   private CategoryRepository categoryRepository;

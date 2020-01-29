@@ -122,7 +122,21 @@
                             class="fas fa-user-slash"></i> Zablokowani użytkownicy:</a>
                 </div>
 
-
+                <c:if test="${param.successremove!=null}">
+                    <div class="alert alert-success text-center" role="alert">
+                        Pomyślnie usunąłeś użytkownika!
+                    </div>
+                </c:if>
+                <c:if test="${param.successblock!=null}">
+                    <div class="alert alert-success text-center" role="alert">
+                        Pomyślnie zablokowałeś użytkownika!
+                    </div>
+                </c:if>
+                <c:if test="${param.successedit!=null}">
+                    <div class="alert alert-success text-center" role="alert">
+                        Pomyślnie edytowałeś dane dotyczące użytkownika!
+                    </div>
+                </c:if>
                 <div class="row">
                     <table class="table table-hover">
                         <thead>

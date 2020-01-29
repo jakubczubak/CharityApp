@@ -40,6 +40,11 @@
         Możesz ją zarchiwizować!.
     </div>
 </c:if>
+<c:if test="${param.successarchive!=null}">
+    <div class="alert alert-success text-center" role="alert">
+        Pomyślnie zarchiwizowano darowizne!
+    </div>
+</c:if>
 <table class="table table-striped">
     <thead>
     <tr>
