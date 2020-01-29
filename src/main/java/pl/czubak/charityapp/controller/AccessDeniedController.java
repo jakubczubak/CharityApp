@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/403")
 public class AccessDeniedController {
 
-    @GetMapping
-    public String getAccessDeniedPage() {
-        return "403";
-    }
+  @GetMapping
+  public String getAccessDeniedPage() {
+    return "403";
+  }
 }

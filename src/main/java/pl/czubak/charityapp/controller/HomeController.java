@@ -13,22 +13,25 @@ import pl.czubak.charityapp.service.DonationService;
 @Controller
 public class HomeController {
 
-    private InstitutionRepository institutionRepository;
-    private DonationRepository donationRepository;
-    private DonationService donationService;
+  private InstitutionRepository institutionRepository;
+  private DonationRepository donationRepository;
+  private DonationService donationService;
 
-    public HomeController(InstitutionRepository institutionRepository, DonationRepository donationRepository, DonationService donationService) {
-        this.donationRepository = donationRepository;
-        this.institutionRepository = institutionRepository;
-        this.donationService = donationService;
-    }
+  public HomeController(
+      InstitutionRepository institutionRepository,
+      DonationRepository donationRepository,
+      DonationService donationService) {
+    this.donationRepository = donationRepository;
+    this.institutionRepository = institutionRepository;
+    this.donationService = donationService;
+  }
 
-    @RequestMapping("/")
-    public String index(Model model) {
-        model.addAttribute("institutions", institutionRepository.findAll());
-        model.addAttribute("numberOfSupportedInstitutions", donationRepository.numberOfSupportedInstitutions());
-        model.addAttribute("donationAmount", donationService.donationAmount());
-        return "index";
-    }
+  @RequestMapping("/")
+  public String index(Model model) {
+    model.addAttribute("institutions", institutionRepository.findAll());
+    model.addAttribute(
+        "numberOfSupportedInstitutions", donationRepository.numberOfSupportedInstitutions());
+    model.addAttribute("donationAmount", donationService.donationAmount());
+    return "index";
+  }
 }
-

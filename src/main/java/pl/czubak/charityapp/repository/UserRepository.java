@@ -6,7 +6,7 @@ import pl.czubak.charityapp.entity.User;
 import java.util.List;
 
 public interface UserRepository extends JpaRepository<User, Long> {
-    User findByEmail(String email);
+  User findByEmail(String email);
 
-    List<User> findAllByisAdminAndEnabled(boolean isAdmin, int Enabled);
+  List<User> findAllByisAdminAndEnabled(boolean isAdmin, int Enabled);
 }

@@ -7,100 +7,104 @@ import java.util.Set;
 @Entity
 @Table(name = "users")
 public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String password;
-    private String rePassword;
-    private int enabled;
-    @Transient
-    private String fullName;
-    @ManyToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles;
-    private boolean isAdmin;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
+  private String firstName;
+  private String lastName;
+  private String email;
+  private String password;
+  private String rePassword;
+  private int enabled;
+  @Transient private String fullName;
 
-    public boolean isAdmin() {
-        return isAdmin;
-    }
+  @ManyToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+  @JoinTable(
+      name = "user_role",
+      joinColumns = @JoinColumn(name = "user_id"),
+      inverseJoinColumns = @JoinColumn(name = "role_id"))
+  private Set<Role> roles;
 
-    public void setAdmin(boolean admin) {
-        isAdmin = admin;
-    }
+  private boolean isAdmin;
 
-    public String getFullName() {
-        return firstName + " " + lastName;
-    }
+  public boolean isAdmin() {
+    return isAdmin;
+  }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
+  public void setAdmin(boolean admin) {
+    isAdmin = admin;
+  }
 
-    public Set<Role> getRoles() {
-        return roles;
-    }
+  public String getFullName() {
+    return firstName + " " + lastName;
+  }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
+  public void setFullName(String fullName) {
+    this.fullName = fullName;
+  }
 
-    public Long getId() {
-        return id;
-    }
+  public Set<Role> getRoles() {
+    return roles;
+  }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+  public void setRoles(Set<Role> roles) {
+    this.roles = roles;
+  }
 
-    public String getFirstName() {
-        return firstName;
-    }
+  public Long getId() {
+    return id;
+  }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+  public void setId(Long id) {
+    this.id = id;
+  }
 
-    public String getLastName() {
-        return lastName;
-    }
+  public String getFirstName() {
+    return firstName;
+  }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
+  }
 
-    public String getEmail() {
-        return email;
-    }
+  public String getLastName() {
+    return lastName;
+  }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
+  }
 
-    public String getPassword() {
-        return password;
-    }
+  public String getEmail() {
+    return email;
+  }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+  public void setEmail(String email) {
+    this.email = email;
+  }
 
-    public String getRePassword() {
-        return rePassword;
-    }
+  public String getPassword() {
+    return password;
+  }
 
-    public void setRePassword(String rePassword) {
-        this.rePassword = rePassword;
-    }
+  public void setPassword(String password) {
+    this.password = password;
+  }
 
-    public int getEnabled() {
-        return enabled;
-    }
+  public String getRePassword() {
+    return rePassword;
+  }
 
-    public void setEnabled(int enabled) {
-        this.enabled = enabled;
-    }
+  public void setRePassword(String rePassword) {
+    this.rePassword = rePassword;
+  }
+
+  public int getEnabled() {
+    return enabled;
+  }
+
+  public void setEnabled(int enabled) {
+    this.enabled = enabled;
+  }
 }

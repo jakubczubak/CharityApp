@@ -14,22 +14,21 @@ import pl.czubak.charityapp.service.UserService;
 @RequestMapping("/registration")
 public class RegistrationController {
 
-    private UserService userService;
+  private UserService userService;
 
-    public RegistrationController(UserService userService) {
-        this.userService = userService;
-    }
+  public RegistrationController(UserService userService) {
+    this.userService = userService;
+  }
 
-    @GetMapping
-    public String getRegistrationPage(Model model) {
-        model.addAttribute("user", new User());
-        return "register";
-    }
+  @GetMapping
+  public String getRegistrationPage(Model model) {
+    model.addAttribute("user", new User());
+    return "register";
+  }
 
-    @PostMapping
-    public String processRegistration(@ModelAttribute User user) {
-        userService.saveUser(user);
-        return "redirect:/login";
-    }
-
+  @PostMapping
+  public String processRegistration(@ModelAttribute User user) {
+    userService.saveUser(user);
+    return "redirect:/login";
+  }
 }

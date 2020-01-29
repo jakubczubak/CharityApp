@@ -15,26 +15,26 @@ import java.security.Principal;
 @SessionAttributes("fullName")
 public class UserController {
 
-    private UserRepository userRepository;
-    private UserService userService;
+  private UserRepository userRepository;
+  private UserService userService;
 
-    public UserController(UserRepository userRepository, UserService userService) {
-        this.userRepository = userRepository;
-        this.userService = userService;
-    }
+  public UserController(UserRepository userRepository, UserService userService) {
+    this.userRepository = userRepository;
+    this.userService = userService;
+  }
 
-    @GetMapping("/edit")
-    public String editUser(Model model, Principal principal) {
-        User currentUser = userRepository.findByEmail(principal.getName());
-        model.addAttribute("fullName", currentUser.getFullName());
-        model.addAttribute("user", currentUser);
-        return "user-edit-page";
-    }
+  @GetMapping("/edit")
+  public String editUser(Model model, Principal principal) {
+    User currentUser = userRepository.findByEmail(principal.getName());
+    model.addAttribute("fullName", currentUser.getFullName());
+    model.addAttribute("user", currentUser);
+    return "user-edit-page";
+  }
 
-    @PostMapping("/edit")
-    public String processEditUser(@ModelAttribute User user, WebRequest request) {
-        userService.saveUser(user);
-        request.removeAttribute("fullName", WebRequest.SCOPE_SESSION);
-        return "redirect:/user/edit";
-    }
+  @PostMapping("/edit")
+  public String processEditUser(@ModelAttribute User user, WebRequest request) {
+    userService.saveUser(user);
+    request.removeAttribute("fullName", WebRequest.SCOPE_SESSION);
+    return "redirect:/user/edit";
+  }
 }

@@ -6,13 +6,12 @@ import pl.czubak.charityapp.entity.Donation;
 
 public interface DonationRepository extends JpaRepository<Donation, Long> {
 
-    @Query("SELECT sum(d.quantity) from Donation d")
-    int donationAmount();
+  @Query("SELECT sum(d.quantity) from Donation d")
+  int donationAmount();
 
-    @Query("Select count(distinct d.institution.id) from Donation d")
-    int numberOfSupportedInstitutions();
+  @Query("Select count(distinct d.institution.id) from Donation d")
+  int numberOfSupportedInstitutions();
 
-    @Query("select count (distinct d.user.id) from Donation d")
-    int numberOfGoodPeople();
-
+  @Query("select count (distinct d.user.id) from Donation d")
+  int numberOfGoodPeople();
 }

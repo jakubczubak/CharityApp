@@ -14,48 +14,68 @@ import java.util.*;
 @Service
 public class UserService {
 
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
-    private RoleRepository roleRepository;
-    private UserRepository userRepository;
+  private BCryptPasswordEncoder bCryptPasswordEncoder;
+  private RoleRepository roleRepository;
+  private UserRepository userRepository;
 
-    public UserService(RoleRepository roleRepository, UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
-        this.roleRepository = roleRepository;
-        this.userRepository = userRepository;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-    }
+  public UserService(
+      RoleRepository roleRepository,
+      UserRepository userRepository,
+      BCryptPasswordEncoder bCryptPasswordEncoder) {
+    this.roleRepository = roleRepository;
+    this.userRepository = userRepository;
+    this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+  }
 
-    public void saveUser(User user) {
-        String encodePassword = bCryptPasswordEncoder.encode(user.getPassword());
-        user.setPassword(encodePassword);
-        user.setRePassword(encodePassword);
-        Role userRole = roleRepository.findByRole("USER");
-        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
-        user.setEnabled(1);
-        user.setAdmin(false);
-        userRepository.save(user);
-    }
+  public void saveUser(User user) {
+    String encodePassword = bCryptPasswordEncoder.encode(user.getPassword());
+    user.setPassword(encodePassword);
+    user.setRePassword(encodePassword);
+    Role userRole = roleRepository.findByRole("USER");
+    user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+    user.setEnabled(1);
+    user.setAdmin(false);
+    userRepository.save(user);
+  }
 
-    public void saveAdmin(User admin) {
-        String encodePassword = bCryptPasswordEncoder.encode(admin.getPassword());
-        admin.setPassword(encodePassword);
-        admin.setRePassword(encodePassword);
-        Role adminRole = roleRepository.findByRole("ADMIN");
-        admin.setRoles(new HashSet<Role>(Arrays.asList(adminRole)));
-        admin.setEnabled(1);
-        admin.setAdmin(true);
-        userRepository.save(admin);
-    }
+  public void saveAdmin(User admin) {
+    String encodePassword = bCryptPasswordEncoder.encode(admin.getPassword());
+    admin.setPassword(encodePassword);
+    admin.setRePassword(encodePassword);
+    Role adminRole = roleRepository.findByRole("ADMIN");
+    admin.setRoles(new HashSet<Role>(Arrays.asList(adminRole)));
+    admin.setEnabled(1);
+    admin.setAdmin(true);
+    userRepository.save(admin);
+  }
 
-    public void updateUser(User user) {
-        User userBeforeUpdate = userRepository.findById(user.getId()).get();
-        user.setEnabled(userBeforeUpdate.getEnabled());
-        user.setAdmin(userBeforeUpdate.isAdmin());
-        user.setRePassword(userBeforeUpdate.getRePassword());
-        user.setPassword(userBeforeUpdate.getPassword());
-        user.setRoles(userBeforeUpdate.getRoles());
+  public void updateUser(User user) {
+    User userBeforeUpdate = userRepository.findById(user.getId()).get();
+    user.setEnabled(userBeforeUpdate.getEnabled());
+    user.setAdmin(userBeforeUpdate.isAdmin());
+    user.setRePassword(userBeforeUpdate.getRePassword());
+    user.setPassword(userBeforeUpdate.getPassword());
+    user.setRoles(userBeforeUpdate.getRoles());
+    userRepository.save(user);
+  }
 
-        userRepository.save(user);
-    }
+  public void createDefaultAdminAccount() {
+    User defaultAdmin = new User();
+    defaultAdmin.setFirstName("admin");
+    defaultAdmin.setLastName("admin");
+    defaultAdmin.setEmail("admin@gmail.com");
+    defaultAdmin.setPassword("admin");
+    defaultAdmin.setRePassword("admin");
+    saveAdmin(defaultAdmin);
+  }
 
-
+  public void createDefaultUserAccount(){
+    User defaultUser = new User();
+    defaultUser.setFirstName("user");
+    defaultUser.setLastName("user");
+    defaultUser.setEmail("user@gmail.com");
+    defaultUser.setPassword("user");
+    defaultUser.setRePassword("user");
+    saveUser(defaultUser);
+  }
 }

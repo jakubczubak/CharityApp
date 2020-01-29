@@ -5,5 +5,5 @@ import pl.czubak.charityapp.entity.Status;
 
 public interface StatusRepository extends JpaRepository<Status, Long> {
 
-    Status findByName(String statusName);
+  Status findByName(String statusName);
 }

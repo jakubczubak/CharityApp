@@ -9,131 +9,134 @@ import java.util.List;
 @Entity
 @Table(name = "donations")
 public class Donation {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private int quantity;
-    @ManyToMany(fetch = FetchType.EAGER)
-    private List<Category> categories;
-    @ManyToOne
-    private Institution institution;
-    private String street;
-    private String city;
-    private String zipCode;
-    @Temporal(TemporalType.DATE)
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date pickUpDate;
-    @DateTimeFormat(pattern = "HH:MM")
-    @Temporal(TemporalType.TIME)
-    private Date pickUpTime;
-    private String pickUpComment;
-    private String phoneNumber;
-    @ManyToOne
-    private User user;
-    @ManyToOne
-    private Status status;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    public Status getStatus() {
-        return status;
-    }
+  private int quantity;
 
-    public void setStatus(Status status) {
-        this.status = status;
-    }
+  @ManyToMany(fetch = FetchType.EAGER)
+  private List<Category> categories;
 
-    public User getUser() {
-        return user;
-    }
+  @ManyToOne private Institution institution;
+  private String street;
+  private String city;
+  private String zipCode;
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+  @Temporal(TemporalType.DATE)
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
+  private Date pickUpDate;
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
+  @DateTimeFormat(pattern = "HH:MM")
+  @Temporal(TemporalType.TIME)
+  private Date pickUpTime;
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
+  private String pickUpComment;
+  private String phoneNumber;
+  @ManyToOne private User user;
+  @ManyToOne private Status status;
 
-    public Long getId() {
-        return id;
-    }
+  public Status getStatus() {
+    return status;
+  }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+  public void setStatus(Status status) {
+    this.status = status;
+  }
 
-    public int getQuantity() {
-        return quantity;
-    }
+  public User getUser() {
+    return user;
+  }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
+  public void setUser(User user) {
+    this.user = user;
+  }
 
-    public List<Category> getCategories() {
-        return categories;
-    }
+  public String getPhoneNumber() {
+    return phoneNumber;
+  }
 
-    public void setCategories(List<Category> categories) {
-        this.categories = categories;
-    }
+  public void setPhoneNumber(String phoneNumber) {
+    this.phoneNumber = phoneNumber;
+  }
 
-    public Institution getInstitution() {
-        return institution;
-    }
+  public Long getId() {
+    return id;
+  }
 
-    public void setInstitution(Institution institution) {
-        this.institution = institution;
-    }
+  public void setId(Long id) {
+    this.id = id;
+  }
 
-    public String getStreet() {
-        return street;
-    }
+  public int getQuantity() {
+    return quantity;
+  }
 
-    public void setStreet(String street) {
-        this.street = street;
-    }
+  public void setQuantity(int quantity) {
+    this.quantity = quantity;
+  }
 
-    public String getCity() {
-        return city;
-    }
+  public List<Category> getCategories() {
+    return categories;
+  }
 
-    public void setCity(String city) {
-        this.city = city;
-    }
+  public void setCategories(List<Category> categories) {
+    this.categories = categories;
+  }
 
-    public String getZipCode() {
-        return zipCode;
-    }
+  public Institution getInstitution() {
+    return institution;
+  }
 
-    public void setZipCode(String zipCode) {
-        this.zipCode = zipCode;
-    }
+  public void setInstitution(Institution institution) {
+    this.institution = institution;
+  }
 
-    public Date getPickUpDate() {
-        return pickUpDate;
-    }
+  public String getStreet() {
+    return street;
+  }
 
-    public void setPickUpDate(Date pickUpDate) {
-        this.pickUpDate = pickUpDate;
-    }
+  public void setStreet(String street) {
+    this.street = street;
+  }
 
-    public Date getPickUpTime() {
-        return pickUpTime;
-    }
+  public String getCity() {
+    return city;
+  }
 
-    public void setPickUpTime(Date pickUpTime) {
-        this.pickUpTime = pickUpTime;
-    }
+  public void setCity(String city) {
+    this.city = city;
+  }
 
-    public String getPickUpComment() {
-        return pickUpComment;
-    }
+  public String getZipCode() {
+    return zipCode;
+  }
 
-    public void setPickUpComment(String pickUpComment) {
-        this.pickUpComment = pickUpComment;
-    }
+  public void setZipCode(String zipCode) {
+    this.zipCode = zipCode;
+  }
+
+  public Date getPickUpDate() {
+    return pickUpDate;
+  }
+
+  public void setPickUpDate(Date pickUpDate) {
+    this.pickUpDate = pickUpDate;
+  }
+
+  public Date getPickUpTime() {
+    return pickUpTime;
+  }
+
+  public void setPickUpTime(Date pickUpTime) {
+    this.pickUpTime = pickUpTime;
+  }
+
+  public String getPickUpComment() {
+    return pickUpComment;
+  }
+
+  public void setPickUpComment(String pickUpComment) {
+    this.pickUpComment = pickUpComment;
+  }
 }
