@@ -3,6 +3,7 @@ package pl.czubak.charityapp.entity;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -36,6 +37,16 @@ public class Donation {
   @ManyToOne private User user;
   @ManyToOne private Status status;
   private boolean isArchived;
+  private LocalDateTime created;
+
+  @PrePersist
+  public void prePersist() {
+    created = LocalDateTime.now();
+  }
+
+  public LocalDateTime getCreated() {
+    return created;
+  }
 
   public boolean isArchived() {
     return isArchived;

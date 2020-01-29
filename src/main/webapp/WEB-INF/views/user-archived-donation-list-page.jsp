@@ -48,6 +48,9 @@
                 <c:if test="${donation.status.name == 'Zlozone'}">
                     <button type="button" title="Złożone" class="btn btn-warning">Złożone</button>
                 </c:if>
+                <c:if test="${donation.status.name == 'Potwierdzone'}">
+                    <button type="button" title="Złożone" class="btn btn-info">Potwierdzone</button>
+                </c:if>
                 <c:if test="${donation.status.name == 'Odebrane'}">
                     <button type="button" title="Odebrane" class="btn btn-primary">Odebrane</button>
                 </c:if>

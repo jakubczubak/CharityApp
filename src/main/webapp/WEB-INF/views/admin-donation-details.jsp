@@ -123,6 +123,9 @@
                     <c:if test="${donation.status.name == 'Zlozone'}">
                         <button type="button" title="Złożone" class="btn btn-warning">Złożone</button>
                     </c:if>
+                    <c:if test="${donation.status.name == 'Potwierdzone'}">
+                        <button type="button" title="Złożone" class="btn btn-info">Potwierdzone</button>
+                    </c:if>
                     <c:if test="${donation.status.name == 'Odebrane'}">
                         <button type="button" title="Odebrane" class="btn btn-primary">Odebrane</button>
                     </c:if>
@@ -143,6 +146,8 @@
                         <h5 style="color: black">Informacje nt. wspieranej instytucji:</h5>
                         Fundacja: "${donation.institution.name}"<br>
                         Cel i misja: ${donation.institution.description}<br>
+                        <h5 style="color: black">Data utworzenia wpisu:</h5>
+                        ${donation.created}<br>
                     </div>
                     <div class="card-body">
                         <h5 style="color: black">Dane darczyńcy:</h5>
@@ -159,6 +164,8 @@
                         <h5 style="color: black">Termin odbioru darowizny:</h5>
                         ${donation.pickUpTime}<br>
                         ${donation.pickUpDate}
+                        <h5 style="color: black">Wiadomość dla kuriera:</h5>
+                        ${donation.pickUpComment}
                     </div>
 
                 </div>

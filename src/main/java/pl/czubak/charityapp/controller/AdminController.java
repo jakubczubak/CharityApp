@@ -96,7 +96,7 @@ public class AdminController {
 
   @GetMapping("/users")
   public String getUsersList(Model model) {
-    model.addAttribute("users", userRepository.findAllByisAdminAndEnabled(true, 1));
+    model.addAttribute("users", userRepository.findAllByisAdminAndEnabled(false, 1));
     return "admin-user-list";
   }
 
@@ -129,7 +129,7 @@ public class AdminController {
 
   @GetMapping("/user/block/list")
   public String getBanUsersList(Model model) {
-    model.addAttribute("banUsers", userRepository.findAllByisAdminAndEnabled(true, 0));
+    model.addAttribute("banUsers", userRepository.findAllByisAdminAndEnabled(false, 0));
     return "admin-blocked-users-page";
   }
 

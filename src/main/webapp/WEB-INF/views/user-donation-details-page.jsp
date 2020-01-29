@@ -34,6 +34,9 @@
         <h5 style="color: black">Informacje nt. wspieranej instytucji:</h5>
         Fundacja: "${currentDonation.institution.name}"<br>
         Cel i misja: ${currentDonation.institution.description}<br>
+        <h5 style="color: black">Data utworzenia wpisu:</h5>
+        ${currentDonation.created}<br>
+
     </div>
     <div class="card-body">
         <h5 style="color: black">Dane darczyńcy:</h5>
@@ -50,6 +53,8 @@
         <h5 style="color: black">Termin odbioru darowizny:</h5>
         ${currentDonation.pickUpTime}<br>
         ${currentDonation.pickUpDate}
+        <h5 style="color: black">Wiadomość dla kuriera:</h5>
+        ${currentDonation.pickUpComment}
     </div>
 
 </div>
@@ -57,6 +62,9 @@
 
     <c:if test="${currentDonation.status.name == 'Zlozone'}">
         <button type="button" title="Złożone" class="btn btn-warning btn-lg btn-block">Złożone</button>
+    </c:if>
+    <c:if test="${currentDonation.status.name == 'Potwierdzone'}">
+        <button type="button" title="Złożone" class="btn btn-info btn-lg btn-block">Potwierdzone</button>
     </c:if>
     <c:if test="${currentDonation.status.name == 'Odebrane'}">
         <button type="button" title="Odebrane" class="btn btn-primary btn-lg btn-block">Odebrane</button>

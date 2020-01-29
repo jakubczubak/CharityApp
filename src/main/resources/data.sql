@@ -12,5 +12,6 @@ insert into institutions (description, name) VALUE ("Pomoc osobom znajdujacym si
                                                     "Dla dzieci");
 
 insert into status (name) VALUE ("Zlozone");
+insert into status (name) VALUE ("Potwierdzone");
 insert into status (name) VALUE ("Odebrane");
 insert into status (name) VALUE ("Przekazane");
