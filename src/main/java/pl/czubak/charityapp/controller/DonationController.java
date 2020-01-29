@@ -16,6 +16,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/donation")
+@SessionAttributes({"fullName","id"})
 public class DonationController {
 
   private CategoryRepository categoryRepository;
@@ -42,6 +43,7 @@ public class DonationController {
 
     User currentUser = userRepository.findByEmail(principal.getName());
     model.addAttribute("fullName", currentUser.getFullName());
+    model.addAttribute("id", currentUser.getId());
     model.addAttribute("donation", new Donation());
     model.addAttribute("categories", categoryRepository.findAll());
     model.addAttribute("institutions", institutionRepository.findAll());

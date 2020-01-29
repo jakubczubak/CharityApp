@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import pl.czubak.charityapp.entity.Role;
 import pl.czubak.charityapp.entity.User;
+import pl.czubak.charityapp.model.PasswordDTO;
 import pl.czubak.charityapp.repository.RoleRepository;
 import pl.czubak.charityapp.repository.UserRepository;
 
@@ -69,7 +70,7 @@ public class UserService {
     saveAdmin(defaultAdmin);
   }
 
-  public void createDefaultUserAccount(){
+  public void createDefaultUserAccount() {
     User defaultUser = new User();
     defaultUser.setFirstName("user");
     defaultUser.setLastName("user");
@@ -77,5 +78,16 @@ public class UserService {
     defaultUser.setPassword("user");
     defaultUser.setRePassword("user");
     saveUser(defaultUser);
+  }
+
+  public boolean editUserPassword(User user, PasswordDTO passwordDTO) {
+    if (bCryptPasswordEncoder.matches(passwordDTO.getOldPassword(), user.getPassword())) {
+      String encodePassword = bCryptPasswordEncoder.encode(passwordDTO.getPassword());
+      user.setPassword(encodePassword);
+      user.setRePassword(encodePassword);
+      userRepository.save(user);
+      return true;
+    }
+    return false;
   }
 }

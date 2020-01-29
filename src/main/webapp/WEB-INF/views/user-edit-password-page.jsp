@@ -66,27 +66,28 @@
 <section class="login-page">
     <c:if test="${param.success!=null}">
         <div class="alert alert-success" role="alert">
-            <h1>******Pomyślnie zmieniono dane******</h1>
+            <h1>******Pomyślnie zmieniono hasło******</h1>
         </div>
     </c:if>
-    <h2>Edytuj dane:</h2>
-    <form:form method="post" modelAttribute="user" action="/user/edit">
+    <c:if test="${param.error!=null}">
+        <div class="alert alert-success" role="alert">
+            <h1>******Niepoprawne dane******</h1>
+        </div>
+    </c:if>
+    <h2>Edytuj hasło:</h2>
+    <form:form method="post" modelAttribute="passwordDTO" action="/user/edit/password">
         <div class="form-group">
-            <form:input path="firstName" type="text" name="firstName" placeholder="Imię"/>
+            <form:input path="oldPassword" type="text" name="firstName" placeholder="Stare hasło"/>
         </div>
         <div class="form-group">
-            <form:input path="lastName" type="text" name="lastName" placeholder="Nazwisko"/>
+            <form:input path="password" type="text" name="lastName" placeholder="Hasło"/>
         </div>
         <div class="form-group">
-            <form:input path="email" type="email" name="email" placeholder="Email"/>
+            <form:input path="rePassword" type="text" name="email" placeholder="Nowe hasło"/>
         </div>
 
-        <form:hidden path="id"></form:hidden>
         <div class="form-group form-group--buttons">
-            <button class="btn" type="submit">Zapisz zmiany</button>
-            <a href="/user/edit/password">
-                <button class="btn" type="button">Zmień hasło</button>
-            </a>
+            <button class="btn" type="submit">Zmień hasło</button>
         </div>
 
     </form:form>
