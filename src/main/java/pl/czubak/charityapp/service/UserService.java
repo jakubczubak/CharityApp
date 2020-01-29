@@ -17,13 +17,14 @@ public class UserService {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     private RoleRepository roleRepository;
     private UserRepository userRepository;
-    public UserService(RoleRepository roleRepository, UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder){
-        this.roleRepository=roleRepository;
-        this.userRepository=userRepository;
-        this.bCryptPasswordEncoder=bCryptPasswordEncoder;
+
+    public UserService(RoleRepository roleRepository, UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.roleRepository = roleRepository;
+        this.userRepository = userRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
-    public void saveUser(User user){
+    public void saveUser(User user) {
         String encodePassword = bCryptPasswordEncoder.encode(user.getPassword());
         user.setPassword(encodePassword);
         user.setRePassword(encodePassword);
@@ -34,7 +35,7 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public void saveAdmin(User admin){
+    public void saveAdmin(User admin) {
         String encodePassword = bCryptPasswordEncoder.encode(admin.getPassword());
         admin.setPassword(encodePassword);
         admin.setRePassword(encodePassword);
@@ -45,7 +46,7 @@ public class UserService {
         userRepository.save(admin);
     }
 
-    public void updateUser(User user){
+    public void updateUser(User user) {
         User userBeforeUpdate = userRepository.findById(user.getId()).get();
         user.setEnabled(userBeforeUpdate.getEnabled());
         user.setAdmin(userBeforeUpdate.isAdmin());
@@ -55,9 +56,6 @@ public class UserService {
 
         userRepository.save(user);
     }
-
-
-
 
 
 }

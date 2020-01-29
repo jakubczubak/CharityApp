@@ -16,11 +16,13 @@ public class HomeController {
     private InstitutionRepository institutionRepository;
     private DonationRepository donationRepository;
     private DonationService donationService;
-    public HomeController(InstitutionRepository institutionRepository, DonationRepository donationRepository, DonationService donationService){
-        this.donationRepository=donationRepository;
-        this.institutionRepository=institutionRepository;
-        this.donationService=donationService;
+
+    public HomeController(InstitutionRepository institutionRepository, DonationRepository donationRepository, DonationService donationService) {
+        this.donationRepository = donationRepository;
+        this.institutionRepository = institutionRepository;
+        this.donationService = donationService;
     }
+
     @RequestMapping("/")
     public String index(Model model) {
         model.addAttribute("institutions", institutionRepository.findAll());

@@ -8,8 +8,8 @@ public class DonationService {
 
     private DonationRepository donationRepository;
 
-    public DonationService(DonationRepository donationRepository){
-        this.donationRepository=donationRepository;
+    public DonationService(DonationRepository donationRepository) {
+        this.donationRepository = donationRepository;
     }
 
     public int donationAmount() {
@@ -21,11 +21,11 @@ public class DonationService {
         }
     }
 
-    public int numberOfGoodPeople(){
+    public int numberOfGoodPeople() {
         try {
             return donationRepository.numberOfGoodPeople();
-        }catch (Exception e){
+        } catch (Exception e) {
             return 0;
         }
-        }
+    }
 }

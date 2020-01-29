@@ -24,18 +24,18 @@ public class DonationController {
     private UserRepository userRepository;
     private StatusRepository statusRepository;
 
-    public DonationController(CategoryRepository categoryRepository, InstitutionRepository institutionRepository, DonationRepository donationRepository, UserRepository userRepository, StatusRepository statusRepository){
-        this.categoryRepository=categoryRepository;
-        this.institutionRepository=institutionRepository;
-        this.donationRepository=donationRepository;
-        this.userRepository=userRepository;
-        this.statusRepository=statusRepository;
+    public DonationController(CategoryRepository categoryRepository, InstitutionRepository institutionRepository, DonationRepository donationRepository, UserRepository userRepository, StatusRepository statusRepository) {
+        this.categoryRepository = categoryRepository;
+        this.institutionRepository = institutionRepository;
+        this.donationRepository = donationRepository;
+        this.userRepository = userRepository;
+        this.statusRepository = statusRepository;
     }
 
     @GetMapping
     public String getDonationPage(Model model, Principal principal, HttpServletRequest request) {
 
-        User currentUser =  userRepository.findByEmail(principal.getName());
+        User currentUser = userRepository.findByEmail(principal.getName());
         model.addAttribute("fullName", currentUser.getFullName());
         model.addAttribute("donation", new Donation());
         model.addAttribute("categories", categoryRepository.findAll());
@@ -45,7 +45,7 @@ public class DonationController {
 
 
     @PostMapping
-    public String processDonation(@RequestParam(value = "category", required = false) List<Category> categories, @RequestParam(value = "organization", required = false) Institution institution, @ModelAttribute Donation donation, Principal principal){
+    public String processDonation(@RequestParam(value = "category", required = false) List<Category> categories, @RequestParam(value = "organization", required = false) Institution institution, @ModelAttribute Donation donation, Principal principal) {
         User currentUser = userRepository.findByEmail(principal.getName());
         donation.setUser(currentUser);
         donation.setInstitution(institution);

@@ -82,6 +82,7 @@ public class MySimpleUrlAuthenticationSuccessHandler implements AuthenticationSu
     public void setRedirectStrategy(RedirectStrategy redirectStrategy) {
         this.redirectStrategy = redirectStrategy;
     }
+
     protected RedirectStrategy getRedirectStrategy() {
         return redirectStrategy;
     }
