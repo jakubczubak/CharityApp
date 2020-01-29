@@ -4,13 +4,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
+import pl.czubak.charityapp.entity.Donation;
 import pl.czubak.charityapp.entity.User;
 import pl.czubak.charityapp.model.PasswordDTO;
+import pl.czubak.charityapp.repository.DonationRepository;
 import pl.czubak.charityapp.repository.UserRepository;
 import pl.czubak.charityapp.service.UserService;
 
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequestMapping("/user")
@@ -19,10 +22,12 @@ public class UserController {
 
   private UserRepository userRepository;
   private UserService userService;
+  private DonationRepository donationRepository;
 
-  public UserController(UserRepository userRepository, UserService userService) {
+  public UserController(UserRepository userRepository, UserService userService, DonationRepository donationRepository) {
     this.userRepository = userRepository;
     this.userService = userService;
+    this.donationRepository=donationRepository;
   }
 
   @GetMapping("/edit")
@@ -61,5 +66,14 @@ public class UserController {
     } else {
       return "redirect:/user/edit/password?error";
     }
+  }
+
+
+  @GetMapping("/donations")
+  public String getUserDonationsList(Model model, HttpSession ses){
+    Long sesID = (Long) ses.getAttribute("id");
+    List<Donation> userDonationList = donationRepository.findAllByUserId(sesID);
+    model.addAttribute("userDonationList", userDonationList);
+    return "user-donation-list-page";
   }
 }
