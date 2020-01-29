@@ -72,8 +72,42 @@ public class UserController {
   @GetMapping("/donations")
   public String getUserDonationsList(Model model, HttpSession ses){
     Long sesID = (Long) ses.getAttribute("id");
-    List<Donation> userDonationList = donationRepository.findAllByUserId(sesID);
+    List<Donation> userDonationList = donationRepository.findAllByisArchivedAndUserId(false,sesID);
     model.addAttribute("userDonationList", userDonationList);
     return "user-donation-list-page";
+  }
+
+  @GetMapping("/donation/archive/{id}")
+  public String archiveDonation(@PathVariable Long id){
+    Donation donation = donationRepository.findById(id).get();
+    donation.setArchived(true);
+    donationRepository.save(donation);
+    return "redirect:/user/donations";
+  }
+
+  @GetMapping("/donations/archived/list")
+  public String getArchivedDonationList(Model model, HttpSession ses){
+    Long sesID = (Long) ses.getAttribute("id");
+    List<Donation> archivedDonationList = donationRepository.findAllByisArchivedAndUserId(true,sesID);
+    model.addAttribute("archivedDonationList", archivedDonationList);
+    return "user-archived-donation-list-page";
+  }
+
+  @GetMapping("/donation/remove/{id}")
+  public String removeDonationByID(@PathVariable Long id){
+    Donation currentDonation = donationRepository.findById(id).get();
+    if(currentDonation.getStatus().getName().equals("Zlozone")){
+      donationRepository.delete(currentDonation);
+      return "redirect:/user/donations?success";
+    }else{
+      return "redirect:/user/donations?error";
+    }
+  }
+
+  @GetMapping("/donation/details/{id}")
+  public String getDonationDetails(@PathVariable Long id, Model model){
+    Donation currentDonation = donationRepository.findById(id).get();
+    model.addAttribute("currentDonation", currentDonation);
+    return "user-donation-details-page";
   }
 }

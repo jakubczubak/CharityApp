@@ -61,6 +61,7 @@ public class DonationController {
     donation.setInstitution(institution);
     donation.setCategories(categories);
     donation.setStatus(statusRepository.findByName("Zlozone"));
+    donation.setArchived(false);
     donationRepository.save(donation);
     return "form-confirmation";
   }

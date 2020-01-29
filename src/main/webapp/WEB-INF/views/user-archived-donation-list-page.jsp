@@ -15,25 +15,13 @@
 </head>
 <body>
 <nav class="navbar navbar-light bg-light">
-    <span class="navbar-brand mb-0 h1">Lista moich darowizn:</span>
-    <a href="/user/donations/archived/list">
-        <button type="button" class="btn btn-dark">Zarchiwizowane darowizny</button>
-    </a>
-    <a href="/donation">
+    <span class="navbar-brand mb-0 h1">Lista zarchiwizowanych darowizn:</span>
+    <span class="navbar-brand mb-0 h1"></span>
+
+    <a href="/user/donations">
         <button type="button" class="btn btn-primary">Powrót</button>
     </a>
 </nav>
-<c:if test="${param.success!=null}">
-    <div class="alert alert-success text-center" role="alert">
-        Pomyślnie usunięto darowiznę!
-    </div>
-</c:if>
-<c:if test="${param.error!=null}">
-    <div class="alert alert-danger text-center" role="alert">
-        Nie można usunąć darowizny z statusem ODEBRANE/PRZEKAZANE.
-        Możesz ją zarchiwizować!.
-    </div>
-</c:if>
 <table class="table table-striped">
     <thead>
     <tr>
@@ -46,7 +34,7 @@
     </tr>
     </thead>
     <tbody>
-    <c:forEach items="${userDonationList}" var="donation" varStatus="index">
+    <c:forEach items="${archivedDonationList}" var="donation" varStatus="index">
         <tr>
             <th scope="row">${index.count}</th>
             <td>
@@ -69,24 +57,10 @@
                 </c:if>
             </td>
             <td>
-                <a href="/user/donation/details/${donation.id}">
+                <a href="/admin/donation/${donation.id}">
                     <button type="button" title="szczegóły" class="btn btn-primary"><i class="fas fa-info-circle"></i>
                     </button>
                 </a>
-                <a href="/user/donation/archive/${donation.id}">
-                    <button type="button" title="archiwizuj" class="btn btn-success"><i class="fas fa-archive"></i>
-                    </button>
-                </a>
-                <a href="/admin/donation/${donation.id}">
-                    <button type="button" title="edytuj" class="btn btn-warning"><i class="fas fa-edit"></i>
-                    </button>
-                </a>
-                <a href="/user/donation/remove/${donation.id}">
-                    <button type="button" title="usuń" class="btn btn-danger"><i class="fas fa-trash-alt"></i>
-                    </button>
-                </a>
-
-
             </td>
         </tr>
     </c:forEach>

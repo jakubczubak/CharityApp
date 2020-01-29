@@ -35,6 +35,15 @@ public class Donation {
   private String phoneNumber;
   @ManyToOne private User user;
   @ManyToOne private Status status;
+  private boolean isArchived;
+
+  public boolean isArchived() {
+    return isArchived;
+  }
+
+  public void setArchived(boolean archived) {
+    isArchived = archived;
+  }
 
   public Status getStatus() {
     return status;
