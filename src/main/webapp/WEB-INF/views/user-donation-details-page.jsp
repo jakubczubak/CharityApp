@@ -36,6 +36,8 @@
         Cel i misja: ${currentDonation.institution.description}<br>
         <h5 style="color: black">Data utworzenia wpisu:</h5>
         ${currentDonation.created}<br>
+        <h5 style="color: black">Data aktualizacji wpisu:</h5>
+        ${currentDonation.updated}<br>
 
     </div>
     <div class="card-body">

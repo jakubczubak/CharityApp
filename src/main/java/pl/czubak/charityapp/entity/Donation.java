@@ -38,6 +38,16 @@ public class Donation {
   @ManyToOne private Status status;
   private boolean isArchived;
   private LocalDateTime created;
+  private LocalDateTime updated;
+
+  @PreUpdate
+  public void preUpdate() {
+    updated = LocalDateTime.now();
+  }
+
+  public LocalDateTime getUpdated() {
+    return updated;
+  }
 
   @PrePersist
   public void prePersist() {

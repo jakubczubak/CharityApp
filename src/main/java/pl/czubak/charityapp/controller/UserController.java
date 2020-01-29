@@ -4,10 +4,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
+import pl.czubak.charityapp.entity.Category;
 import pl.czubak.charityapp.entity.Donation;
 import pl.czubak.charityapp.entity.User;
 import pl.czubak.charityapp.model.PasswordDTO;
+import pl.czubak.charityapp.repository.CategoryRepository;
 import pl.czubak.charityapp.repository.DonationRepository;
+import pl.czubak.charityapp.repository.InstitutionRepository;
 import pl.czubak.charityapp.repository.UserRepository;
 import pl.czubak.charityapp.service.UserService;
 
@@ -23,11 +26,14 @@ public class UserController {
   private UserRepository userRepository;
   private UserService userService;
   private DonationRepository donationRepository;
-
-  public UserController(UserRepository userRepository, UserService userService, DonationRepository donationRepository) {
+  private CategoryRepository categoryRepository;
+  private InstitutionRepository institutionRepository;
+  public UserController(UserRepository userRepository, UserService userService, DonationRepository donationRepository, CategoryRepository categoryRepository, InstitutionRepository institutionRepository) {
     this.userRepository = userRepository;
     this.userService = userService;
     this.donationRepository=donationRepository;
+    this.categoryRepository=categoryRepository;
+    this.institutionRepository=institutionRepository;
   }
 
   @GetMapping("/edit")
@@ -109,5 +115,21 @@ public class UserController {
     Donation currentDonation = donationRepository.findById(id).get();
     model.addAttribute("currentDonation", currentDonation);
     return "user-donation-details-page";
+  }
+
+  @GetMapping("/donation/edit/{id}")
+  public String editDonation(@PathVariable Long id, Model model, Principal principal){
+    Donation currentDonation = donationRepository.findById(id).get();
+    if(currentDonation.getStatus().getName().equals("Zlozone")){
+      User currentUser = userRepository.findByEmail(principal.getName());
+      model.addAttribute("donation", currentDonation);
+      model.addAttribute("categories", categoryRepository.findAll());
+      model.addAttribute("institutions", institutionRepository.findAll());
+      model.addAttribute("fullName", currentUser.getFullName());
+      model.addAttribute("id", currentUser.getId());
+      return "form";
+    }else {
+      return "redirect:/user/donations?fail";
+    }
   }
 }

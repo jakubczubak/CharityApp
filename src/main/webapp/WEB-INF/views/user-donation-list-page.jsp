@@ -30,7 +30,13 @@
 </c:if>
 <c:if test="${param.error!=null}">
     <div class="alert alert-danger text-center" role="alert">
-        Nie można usunąć darowizny z statusem ODEBRANE/PRZEKAZANE.
+        Nie można usunąć darowizny z statusem ODEBRANE/POTWIERDZONE/PRZEKAZANE.
+        Możesz ją zarchiwizować!.
+    </div>
+</c:if>
+<c:if test="${param.fail!=null}">
+    <div class="alert alert-danger text-center" role="alert">
+        Nie można edytować darowizny z statusem ODEBRANE/POTWIERDZONE/PRZEKAZANE.
         Możesz ją zarchiwizować!.
     </div>
 </c:if>
@@ -80,7 +86,7 @@
                     <button type="button" title="archiwizuj" class="btn btn-success"><i class="fas fa-archive"></i>
                     </button>
                 </a>
-                <a href="/admin/donation/${donation.id}">
+                <a href="/user/donation/edit/${donation.id}">
                     <button type="button" title="edytuj" class="btn btn-warning"><i class="fas fa-edit"></i>
                     </button>
                 </a>

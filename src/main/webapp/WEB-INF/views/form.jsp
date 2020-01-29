@@ -247,6 +247,7 @@
                     <button type="submit" class="btn">Potwierdzam</button>
                 </div>
             </div>
+            <form:hidden path="id"></form:hidden>
         </form:form>
     </div>
 </section>
