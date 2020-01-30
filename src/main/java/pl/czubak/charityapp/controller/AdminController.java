@@ -8,6 +8,7 @@ import pl.czubak.charityapp.entity.Donation;
 import pl.czubak.charityapp.entity.Institution;
 import pl.czubak.charityapp.entity.Status;
 import pl.czubak.charityapp.entity.User;
+import pl.czubak.charityapp.model.PasswordDTO;
 import pl.czubak.charityapp.repository.DonationRepository;
 import pl.czubak.charityapp.repository.InstitutionRepository;
 import pl.czubak.charityapp.repository.StatusRepository;
@@ -21,7 +22,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
-@SessionAttributes("fullName")
+@SessionAttributes({"fullName", "id"})
 public class AdminController {
 
   private UserRepository userRepository;
@@ -50,6 +51,7 @@ public class AdminController {
   public String getAdminPage(Model model, Principal principal) {
     User currentUser = userRepository.findByEmail(principal.getName());
     model.addAttribute("fullName", currentUser.getFullName());
+    model.addAttribute("id",currentUser.getId());
     model.addAttribute("donationAmount", donationService.donationAmount());
     model.addAttribute("AmountOfGoodPeople", donationService.numberOfGoodPeople());
     model.addAttribute("AmountOfTrustedInstitution", institutionRepository.findAll().size());
@@ -189,6 +191,26 @@ public class AdminController {
     ses.removeAttribute("fullName");
     model.addAttribute("fullName", admin.getFullName());
     return "redirect:/admin/edit/"+admin.getId() + "?seccessedit";
+  }
+
+  @GetMapping("/edit/password")
+  public String editPassword(Model model) {
+    model.addAttribute("passwordDTO", new PasswordDTO());
+    return "admin-edit-password-page";
+  }
+
+  @PostMapping("/edit/password")
+  public String processEditPassword(@ModelAttribute PasswordDTO passwordDTO, HttpSession ses) {
+    Long sesID = (Long) ses.getAttribute("id");
+    User currentUser = userRepository.findById(sesID).get();
+    if (!passwordDTO.getPassword().equals(passwordDTO.getRePassword())) {
+      return "redirect:/admin/edit/password?error";
+    }
+    if (userService.editUserPassword(currentUser, passwordDTO)) {
+      return "redirect:/admin/edit/password?success";
+    } else {
+      return "redirect:/admin/edit/password?error";
+    }
   }
 
   @GetMapping("/donations")

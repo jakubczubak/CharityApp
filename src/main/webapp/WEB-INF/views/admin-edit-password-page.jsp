@@ -121,33 +121,34 @@
                     <h1 class="h3 mb-0 text-gray-800">Edytuj dane administratora:</h1>
                 </div>
 
-                <c:if test="${param.seccessedit!=null}">
+                <c:if test="${param.success!=null}">
                     <div class="alert alert-success text-center" role="alert">
-                        Pomyślnie edytowano dane!
+                        Pomyślnie zmieniono hasło!
+                    </div>
+                </c:if>
+                <c:if test="${param.error!=null}">
+                    <div class="alert alert-danger text-center" role="alert">
+                        Niepoprawne dane!
                     </div>
                 </c:if>
                 <div>
-                    <form:form modelAttribute="admin" method="post" action="/admin/edit">
+                    <form:form modelAttribute="passwordDTO" method="post" action="/admin/edit/password">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Imię:</label>
-                            <form:input path="firstName" type="text" class="form-control" id="exampleInputEmail1"
+                            <label for="exampleInputEmail1">Podaj stare hasło:</label>
+                            <form:input path="oldPassword" type="text" class="form-control" id="exampleInputEmail1"
                                         aria-describedby="emailHelp"/>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Nazwisko:</label>
-                            <form:input path="lastName" type="text" class="form-control" id="exampleInputEmail1"
+                            <label for="exampleInputEmail1">Nowe hasło:</label>
+                            <form:input path="password" type="text" class="form-control" id="exampleInputEmail1"
                                         aria-describedby="emailHelp"/>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Adres email::</label>
-                            <form:input path="email" type="email" class="form-control" id="exampleInputEmail1"
+                            <label for="exampleInputEmail1">Powtórz hasło::</label>
+                            <form:input path="rePassword" type="text" class="form-control" id="exampleInputEmail1"
                                         aria-describedby="emailHelp"/>
                         </div>
-                        <form:hidden path="id"></form:hidden>
                         <button type="submit" class="btn btn-warning">Zapisz</button>
-                        <a href="/admin/edit/password">
-                            <button type="button" class="btn btn-primary">Zmień hasło</button>
-                        </a>
                     </form:form>
                 </div>
 
