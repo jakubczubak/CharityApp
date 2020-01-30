@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.czubak.charityapp.service.MailService;
 
 @Controller
-@RequestMapping("/user/message")
+@RequestMapping("/message")
 public class MailController {
 
   private MailService mailService;
@@ -18,7 +18,8 @@ public class MailController {
   }
 
   @PostMapping
-  public String getMessage(@RequestParam String name, @RequestParam String surname, @RequestParam String message) {
+  public String getMessage(
+      @RequestParam String name, @RequestParam String surname, @RequestParam String message) {
     mailService.sendSimpleMessage("charityappbyjczubak@gmail.com", name + " " + surname, message);
     return "mail-confirmation";
   }
