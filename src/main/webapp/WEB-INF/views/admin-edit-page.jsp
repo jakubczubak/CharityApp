@@ -121,7 +121,11 @@
                     <h1 class="h3 mb-0 text-gray-800">Edytuj dane administratora:</h1>
                 </div>
 
-
+                <c:if test="${param.seccessedit!=null}">
+                    <div class="alert alert-success text-center" role="alert">
+                        Pomyślnie edytowano dane!
+                    </div>
+                </c:if>
                 <div>
                     <form:form modelAttribute="admin" method="post" action="/admin/edit">
                         <div class="form-group">
@@ -139,18 +143,8 @@
                             <form:input path="email" type="email" class="form-control" id="exampleInputEmail1"
                                         aria-describedby="emailHelp"/>
                         </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Hasło:</label>
-                            <form:input path="password" type="password" class="form-control" id="exampleInputEmail1"
-                                        aria-describedby="emailHelp"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Powtórz hasło:</label>
-                            <form:input path="rePassword" type="password" class="form-control" id="exampleInputEmail1"
-                                        aria-describedby="emailHelp"/>
-                        </div>
                         <form:hidden path="id"></form:hidden>
-                        <button type="submit" class="btn btn-primary">Dodaj</button>
+                        <button type="submit" class="btn btn-warning">Zapisz</button>
                     </form:form>
                 </div>
 

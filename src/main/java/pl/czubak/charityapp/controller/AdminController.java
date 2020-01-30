@@ -15,6 +15,7 @@ import pl.czubak.charityapp.repository.UserRepository;
 import pl.czubak.charityapp.service.DonationService;
 import pl.czubak.charityapp.service.UserService;
 
+import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.util.List;
 
@@ -183,10 +184,11 @@ public class AdminController {
   }
 
   @PostMapping("/edit")
-  public String processEditAdmin(@ModelAttribute(name = "admin") User admin, WebRequest request) {
-    userService.saveAdmin(admin);
-    request.removeAttribute("user", WebRequest.SCOPE_SESSION);
-    return "admin-edit-page";
+  public String processEditAdmin(@ModelAttribute(name = "admin") User admin, HttpSession ses, Model model) {
+    userService.updateUser(admin);
+    ses.removeAttribute("fullName");
+    model.addAttribute("fullName", admin.getFullName());
+    return "redirect:/admin/edit/"+admin.getId() + "?seccessedit";
   }
 
   @GetMapping("/donations")
