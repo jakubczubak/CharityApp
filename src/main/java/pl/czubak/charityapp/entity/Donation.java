@@ -31,17 +31,18 @@ public class Donation {
 
   @Temporal(TemporalType.DATE)
   @DateTimeFormat(pattern = "yyyy-MM-dd")
-  @Future
+  @Future(message = "Niepoprawna data odbioru darowizny")
   @NotNull(message = "Podaj datę odbioru darowizny przez kuriera")
   private Date pickUpDate;
 
-  @DateTimeFormat(pattern = "HH:MM")
+  @DateTimeFormat(pattern = "HH:mm")
   @Temporal(TemporalType.TIME)
   @NotNull(message = "Podaj czas odebrania darowizny")
   private Date pickUpTime;
 
   private String pickUpComment;
   @NotEmpty(message = "Podaj numer telefonu")
+  @Pattern(regexp = "[0-9]{9}", message = "Niepoprawny nr tel.")
   private String phoneNumber;
   @ManyToOne private User user;
   @ManyToOne private Status status;

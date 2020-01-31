@@ -88,10 +88,15 @@
             <!-- STEP 1: class .active is switching steps -->
             <div data-step="1" class="active">
                 <h3>Zaznacz co chcesz oddać:</h3>
-                <c:forEach items="${categories}" var="category">
+                <c:forEach items="${categories}" var="category" varStatus="index">
                     <div class="form-group form-group--checkbox">
                         <label>
-                            <input type="checkbox" name="category" value="${category.id}"/>
+                            <c:if test="${index.first}">
+                                <input type="checkbox" name="category" value="${category.id}" checked/>
+                            </c:if>
+                            <c:if test="${!index.first}">
+                                <input type="checkbox" name="category" value="${category.id}"/>
+                            </c:if>
                             <span class="checkbox"></span>
                             <span class="description">${category.name}</span>
                         </label>
@@ -109,7 +114,7 @@
                 <div class="form-group form-group--inline">
                     <label>
                         Liczba 60l worków:
-                        <form:input id="getQuantityOfBags" path="quantity" type="number" name="bags" step="1" min="1"/>
+                        <form:input id="getQuantityOfBags" path="quantity" type="number" name="bags" step="1" min="1" value="1"/>
                     </label>
                 </div>
 
@@ -123,10 +128,10 @@
             <!-- STEP 4 -->
             <div data-step="3">
                 <h3>Wybierz organizacje, której chcesz pomóc:</h3>
-                <c:forEach items="${institutions}" var="institution">
+                <c:forEach items="${institutions}" var="institution" varStatus="index">
                     <div class="form-group form-group--checkbox">
                         <label id="getLabel">
-                            <input type="radio" name="organization" value="${institution.id}" />
+                                <input type="radio" name="organization" value="${institution.id}"/>
                             <span class="checkbox radio"></span>
                             <span class="description">
                   <div id="getInstitutionName" class="title">Fundacja “${institution.name}"</div>
