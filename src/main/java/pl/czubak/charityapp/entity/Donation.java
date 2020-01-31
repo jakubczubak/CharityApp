@@ -31,7 +31,6 @@ public class Donation {
 
   @Temporal(TemporalType.DATE)
   @DateTimeFormat(pattern = "yyyy-MM-dd")
-  @Future(message = "Niepoprawna data odbioru darowizny")
   @NotNull(message = "Podaj datę odbioru darowizny przez kuriera")
   private Date pickUpDate;
 
@@ -44,8 +43,19 @@ public class Donation {
   @NotEmpty(message = "Podaj numer telefonu")
   @Pattern(regexp = "[0-9]{9}", message = "Niepoprawny nr tel.")
   private String phoneNumber;
-  @ManyToOne private User user;
-  @ManyToOne private Status status;
+
+  public void setCreated(LocalDateTime created) {
+    this.created = created;
+  }
+
+  public void setUpdated(LocalDateTime updated) {
+    this.updated = updated;
+  }
+
+  @ManyToOne
+  private User user;
+  @ManyToOne
+  private Status status;
   private boolean isArchived;
   private LocalDateTime created;
   private LocalDateTime updated;
@@ -178,5 +188,27 @@ public class Donation {
 
   public void setPickUpComment(String pickUpComment) {
     this.pickUpComment = pickUpComment;
+  }
+
+  @Override
+  public String toString() {
+    return "Donation{" +
+            "id=" + id +
+            ", quantity=" + quantity +
+            ", categories=" + categories +
+            ", institution=" + institution +
+            ", street='" + street + '\'' +
+            ", city='" + city + '\'' +
+            ", zipCode='" + zipCode + '\'' +
+            ", pickUpDate=" + pickUpDate +
+            ", pickUpTime=" + pickUpTime +
+            ", pickUpComment='" + pickUpComment + '\'' +
+            ", phoneNumber='" + phoneNumber + '\'' +
+            ", user=" + user +
+            ", status=" + status +
+            ", isArchived=" + isArchived +
+            ", created=" + created +
+            ", updated=" + updated +
+            '}';
   }
 }

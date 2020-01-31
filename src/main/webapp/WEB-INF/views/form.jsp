@@ -114,7 +114,8 @@
                 <div class="form-group form-group--inline">
                     <label>
                         Liczba 60l worków:
-                        <form:input id="getQuantityOfBags" path="quantity" type="number" name="bags" step="1" min="1" value="1"/>
+                        <form:input id="getQuantityOfBags" path="quantity" type="number" name="bags" step="1" min="1"
+                                    value="1"/>
                     </label>
                 </div>
 
@@ -128,10 +129,10 @@
             <!-- STEP 4 -->
             <div data-step="3">
                 <h3>Wybierz organizacje, której chcesz pomóc:</h3>
-                <c:forEach items="${institutions}" var="institution" varStatus="index">
+                <c:forEach items="${institutions}" var="institution">
                     <div class="form-group form-group--checkbox">
                         <label id="getLabel">
-                                <input type="radio" name="organization" value="${institution.id}"/>
+                            <input type="radio" name="organization" value="${institution.id}"/>
                             <span class="checkbox radio"></span>
                             <span class="description">
                   <div id="getInstitutionName" class="title">Fundacja “${institution.name}"</div>
@@ -257,7 +258,6 @@
 </section>
 
 <%@include file="footer.jsp" %>
->
 
 <script src="<c:url value="/resources/js/app.js"/>"></script>
 </body>

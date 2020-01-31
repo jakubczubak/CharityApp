@@ -17,7 +17,7 @@
 <nav class="navbar navbar-light bg-light">
     <span class="navbar-brand mb-0 h1">Lista moich darowizn:</span>
     <a href="/user/donations/archived/list">
-        <button type="button" class="btn btn-dark">Zarchiwizowane darowizny</button>
+        <button type="button" class="btn btn-success">Zarchiwizowane darowizny</button>
     </a>
     <a href="/donation">
         <button type="button" class="btn btn-primary">Powrót</button>

@@ -70,20 +70,24 @@ public class DonationController {
       @ModelAttribute Donation donation,
       Principal principal, Model model) {
 
+    //IF WE UPDATE DONATIONS
+    //START
+    if(donation.getId()!=null){
+      Donation currentDonation = donationRepository.findById(donation.getId()).get();
+      donation.setCreated(currentDonation.getCreated());
+    }
+    //FINISH
     User currentUser = userRepository.findByEmail(principal.getName());
     donation.setUser(currentUser);
     donation.setInstitution(institution);
     donation.setCategories(categories);
     donation.setStatus(statusRepository.findByName("Zlozone"));
-    donation.setArchived(false);
 
     Set<ConstraintViolation<Donation>> violations = validator.validate(donation);
     if(!violations.isEmpty()){
       List<DonationError> donationErrorList = new ArrayList<>();
       for (ConstraintViolation<Donation> constraintViolation : violations) {
-        donationErrorList.add(new DonationError(constraintViolation.getMessage()));
-        System.out.println(constraintViolation.getPropertyPath()+ " "
-                + constraintViolation.getMessage()); }
+        donationErrorList.add(new DonationError(constraintViolation.getMessage())); }
       model.addAttribute("donationErrorList", donationErrorList);
       return "form-error-list";
     }
