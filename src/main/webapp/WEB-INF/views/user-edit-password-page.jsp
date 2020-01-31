@@ -76,13 +76,16 @@
     <h2>Edytuj hasło:</h2>
     <form:form method="post" modelAttribute="passwordDTO" action="/user/edit/password">
         <div class="form-group">
-            <form:input path="oldPassword" type="text" name="firstName" placeholder="Stare hasło"/>
+            <form:input path="oldPassword" type="password" name="oldPassword" placeholder="Stare hasło"/>
+            <form:errors cssClass="error" path="oldPassword" element="div"/>
         </div>
         <div class="form-group">
-            <form:input path="password" type="text" name="lastName" placeholder="Hasło"/>
+            <form:input path="password" type="password" name="password" placeholder="Hasło"/>
+            <form:errors cssClass="error" path="password" element="div"/>
         </div>
         <div class="form-group">
-            <form:input path="rePassword" type="text" name="email" placeholder="Nowe hasło"/>
+            <form:input path="rePassword" type="password" name="rePassword" placeholder="Nowe hasło"/>
+            <form:errors cssClass="error" path="rePassword" element="div"/>
         </div>
 
         <div class="form-group form-group--buttons">

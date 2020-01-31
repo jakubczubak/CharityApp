@@ -2,6 +2,7 @@ package pl.czubak.charityapp.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import pl.czubak.charityapp.entity.Category;
@@ -15,6 +16,7 @@ import pl.czubak.charityapp.repository.UserRepository;
 import pl.czubak.charityapp.service.UserService;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
 
@@ -67,9 +69,12 @@ public class UserController {
   }
 
   @PostMapping("/edit/password")
-  public String processEditPassword(@ModelAttribute PasswordDTO passwordDTO, HttpSession ses) {
+  public String processEditPassword(@Valid @ModelAttribute PasswordDTO passwordDTO, BindingResult result, HttpSession ses) {
     Long sesID = (Long) ses.getAttribute("id");
     User currentUser = userRepository.findById(sesID).get();
+    if(result.hasErrors()){
+      return "user-edit-password-page";
+    }
     if (!passwordDTO.getPassword().equals(passwordDTO.getRePassword())) {
       return "redirect:/user/edit/password?error";
     }
