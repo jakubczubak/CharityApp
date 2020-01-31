@@ -14,21 +14,25 @@ public class User {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+
   @NotNull
   @Size(min = 3, max = 30)
   private String firstName;
+
   @NotNull
   @Size(min = 3, max = 30)
   private String lastName;
-  @NotEmpty
-  @Email
-  private String email;
+
+  @NotEmpty @Email private String email;
+
   @NotNull
   @Size(min = 3)
   private String password;
+
   @NotNull
   @Size(min = 3)
   private String rePassword;
+
   private int enabled;
   @Transient private String fullName;
 

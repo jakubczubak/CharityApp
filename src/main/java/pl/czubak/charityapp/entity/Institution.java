@@ -10,11 +10,13 @@ public class Institution {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+
   @NotNull
-  @Size(min=3)
+  @Size(min = 3)
   private String name;
+
   @NotNull
-  @Size(min=3)
+  @Size(min = 3)
   private String description;
 
   public String getName() {

@@ -142,21 +142,24 @@
                             <label for="exampleInputEmail1">Podaj stare hasło:</label>
                             <form:input path="oldPassword" type="password" class="form-control" id="exampleInputEmail1"
                                         aria-describedby="emailHelp"/>
-                            <form:errors cssClass="alert alert-danger" cssStyle="margin-top: 10px" path="oldPassword" element="div"/>
+                            <form:errors cssClass="alert alert-danger" cssStyle="margin-top: 10px" path="oldPassword"
+                                         element="div"/>
 
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Nowe hasło:</label>
                             <form:input path="password" type="password" class="form-control" id="exampleInputEmail1"
                                         aria-describedby="emailHelp"/>
-                            <form:errors cssClass="alert alert-danger" cssStyle="margin-top: 10px" path="password" element="div"/>
+                            <form:errors cssClass="alert alert-danger" cssStyle="margin-top: 10px" path="password"
+                                         element="div"/>
 
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Powtórz hasło::</label>
                             <form:input path="rePassword" type="password" class="form-control" id="exampleInputEmail1"
                                         aria-describedby="emailHelp"/>
-                            <form:errors cssClass="alert alert-danger" cssStyle="margin-top: 10px" path="rePassword" element="div"/>
+                            <form:errors cssClass="alert alert-danger" cssStyle="margin-top: 10px" path="rePassword"
+                                         element="div"/>
 
                         </div>
                         <button type="submit" class="btn btn-warning">Zapisz</button>

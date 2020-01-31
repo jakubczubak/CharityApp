@@ -16,7 +16,7 @@
 
 <section class="login-page">
     <c:if test="${param.error!=null}">
-        <div class="error" >
+        <div class="error">
             <h2>Niepoprawne dane!</h2>
         </div>
     </c:if>

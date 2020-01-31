@@ -7,9 +7,11 @@ public class PasswordDTO {
   @NotNull
   @Size(min = 3, message = "Podaj stare hasło!")
   private String oldPassword;
+
   @NotNull
   @Size(min = 3, message = "Podaj nowe hasło, min. 3 znaki!")
   private String password;
+
   @NotNull
   @Size(min = 3, message = "Powtórz nowe hasło, min. 3 znaki!")
   private String rePassword;

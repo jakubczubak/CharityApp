@@ -21,8 +21,7 @@ public class MailController {
 
   private MailService mailService;
 
-  @Autowired
-  Validator validator;
+  @Autowired Validator validator;
 
   public MailController(MailService mailService) {
     this.mailService = mailService;
@@ -30,13 +29,17 @@ public class MailController {
 
   @PostMapping
   public String getMessage(
-          @RequestParam String name, @RequestParam String surname, @RequestParam String message, Model model) {
-    Sender sender = new Sender(name,surname,message);
+      @RequestParam String name,
+      @RequestParam String surname,
+      @RequestParam String message,
+      Model model) {
+    Sender sender = new Sender(name, surname, message);
     Set<ConstraintViolation<Sender>> violations = validator.validate(sender);
-    if(!violations.isEmpty()){
+    if (!violations.isEmpty()) {
       List<Error> errorList = new ArrayList<>();
       for (ConstraintViolation<Sender> constraintViolation : violations) {
-        errorList.add(new Error(constraintViolation.getMessage())); }
+        errorList.add(new Error(constraintViolation.getMessage()));
+      }
       model.addAttribute("contactErrorList", errorList);
       return "contact-form-error-list";
     }

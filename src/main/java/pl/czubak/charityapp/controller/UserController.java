@@ -53,8 +53,9 @@ public class UserController {
   }
 
   @PostMapping("/edit")
-  public String processEditUser(@Valid @ModelAttribute User user, BindingResult result, HttpSession ses, Model model) {
-    if(result.hasErrors()){
+  public String processEditUser(
+      @Valid @ModelAttribute User user, BindingResult result, HttpSession ses, Model model) {
+    if (result.hasErrors()) {
       return "user-edit-page";
     }
     userService.updateUser(user);
@@ -72,10 +73,11 @@ public class UserController {
   }
 
   @PostMapping("/edit/password")
-  public String processEditPassword(@Valid @ModelAttribute PasswordDTO passwordDTO, BindingResult result, HttpSession ses) {
+  public String processEditPassword(
+      @Valid @ModelAttribute PasswordDTO passwordDTO, BindingResult result, HttpSession ses) {
     Long sesID = (Long) ses.getAttribute("id");
     User currentUser = userRepository.findById(sesID).get();
-    if(result.hasErrors()){
+    if (result.hasErrors()) {
       return "user-edit-password-page";
     }
     if (!passwordDTO.getPassword().equals(passwordDTO.getRePassword())) {

@@ -29,19 +29,15 @@
             </sec:authorize>
         </ul>
 
-        <ul>
-            <li><a href="/donation" class="btn btn--without-border active">Start</a></li>
-            <li><a href="index.html#steps" class="btn btn--without-border">O co chodzi?</a></li>
-            <li><a href="index.html#about-us" class="btn btn--without-border">O nas</a></li>
-            <li><a href="index.html#help" class="btn btn--without-border">Fundacje i organizacje</a></li>
-            <li><a href="index.html#contact" class="btn btn--without-border">Kontakt</a></li>
-        </ul>
+        <%@include file="navimenu.jsp" %>
+
+
     </nav>
 
     <div style="padding-top: 100px">
-            <h2>
-                Niepoprawnie wypełniony formularz!
-            </h2>
+        <h2>
+            Niepoprawnie wypełniony formularz!
+        </h2>
         <div class="login-page">
             <c:forEach items="${donationErrorList}" var="error" varStatus="index">
                 <label class="error">${index.count}.${error.name}</label>

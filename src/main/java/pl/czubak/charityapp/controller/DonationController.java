@@ -30,8 +30,7 @@ public class DonationController {
   private UserRepository userRepository;
   private StatusRepository statusRepository;
 
-  @Autowired
-  Validator validator;
+  @Autowired Validator validator;
 
   public DonationController(
       CategoryRepository categoryRepository,
@@ -63,15 +62,16 @@ public class DonationController {
       @RequestParam(value = "category", required = false) List<Category> categories,
       @RequestParam(value = "organization", required = false) Institution institution,
       @ModelAttribute Donation donation,
-      Principal principal, Model model) {
+      Principal principal,
+      Model model) {
 
-    //IF WE UPDATE DONATIONS
-    //START
-    if(donation.getId()!=null){
+    // IF WE UPDATE DONATIONS
+    // START
+    if (donation.getId() != null) {
       Donation currentDonation = donationRepository.findById(donation.getId()).get();
       donation.setCreated(currentDonation.getCreated());
     }
-    //FINISH
+    // FINISH
     User currentUser = userRepository.findByEmail(principal.getName());
     donation.setUser(currentUser);
     donation.setInstitution(institution);
@@ -79,10 +79,11 @@ public class DonationController {
     donation.setStatus(statusRepository.findByName("Zlozone"));
 
     Set<ConstraintViolation<Donation>> violations = validator.validate(donation);
-    if(!violations.isEmpty()){
+    if (!violations.isEmpty()) {
       List<Error> errorList = new ArrayList<>();
       for (ConstraintViolation<Donation> constraintViolation : violations) {
-        errorList.add(new Error(constraintViolation.getMessage())); }
+        errorList.add(new Error(constraintViolation.getMessage()));
+      }
       model.addAttribute("donationErrorList", errorList);
       return "form-error-list";
     }

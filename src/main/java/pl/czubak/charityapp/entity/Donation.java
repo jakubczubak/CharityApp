@@ -14,18 +14,24 @@ public class Donation {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+
   @Min(1)
   private int quantity;
 
   @ManyToMany(fetch = FetchType.EAGER)
   @NotNull(message = "Zaznacz co chcesz oddać!")
   private List<Category> categories;
+
   @NotNull(message = "Wybierz instytucję którą chcesz wesprzeć!")
-  @ManyToOne private Institution institution;
+  @ManyToOne
+  private Institution institution;
+
   @NotEmpty(message = "Brak nazwy ulicy")
   private String street;
+
   @NotEmpty(message = "Brak miejsca zamieszkania")
   private String city;
+
   @NotEmpty(message = "Podaj kod pocztowy")
   private String zipCode;
 
@@ -40,6 +46,7 @@ public class Donation {
   private Date pickUpTime;
 
   private String pickUpComment;
+
   @NotEmpty(message = "Podaj numer telefonu")
   @Pattern(regexp = "[0-9]{9}", message = "Niepoprawny nr tel.")
   private String phoneNumber;
@@ -52,10 +59,8 @@ public class Donation {
     this.updated = updated;
   }
 
-  @ManyToOne
-  private User user;
-  @ManyToOne
-  private Status status;
+  @ManyToOne private User user;
+  @ManyToOne private Status status;
   private boolean isArchived;
   private LocalDateTime created;
   private LocalDateTime updated;
@@ -192,23 +197,44 @@ public class Donation {
 
   @Override
   public String toString() {
-    return "Donation{" +
-            "id=" + id +
-            ", quantity=" + quantity +
-            ", categories=" + categories +
-            ", institution=" + institution +
-            ", street='" + street + '\'' +
-            ", city='" + city + '\'' +
-            ", zipCode='" + zipCode + '\'' +
-            ", pickUpDate=" + pickUpDate +
-            ", pickUpTime=" + pickUpTime +
-            ", pickUpComment='" + pickUpComment + '\'' +
-            ", phoneNumber='" + phoneNumber + '\'' +
-            ", user=" + user +
-            ", status=" + status +
-            ", isArchived=" + isArchived +
-            ", created=" + created +
-            ", updated=" + updated +
-            '}';
+    return "Donation{"
+        + "id="
+        + id
+        + ", quantity="
+        + quantity
+        + ", categories="
+        + categories
+        + ", institution="
+        + institution
+        + ", street='"
+        + street
+        + '\''
+        + ", city='"
+        + city
+        + '\''
+        + ", zipCode='"
+        + zipCode
+        + '\''
+        + ", pickUpDate="
+        + pickUpDate
+        + ", pickUpTime="
+        + pickUpTime
+        + ", pickUpComment='"
+        + pickUpComment
+        + '\''
+        + ", phoneNumber='"
+        + phoneNumber
+        + '\''
+        + ", user="
+        + user
+        + ", status="
+        + status
+        + ", isArchived="
+        + isArchived
+        + ", created="
+        + created
+        + ", updated="
+        + updated
+        + '}';
   }
 }

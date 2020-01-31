@@ -128,35 +128,40 @@
                             <label for="exampleInputEmail1">Imię:</label>
                             <form:input path="firstName" type="text" class="form-control" id="exampleInputEmail1"
                                         aria-describedby="emailHelp"/>
-                            <form:errors cssClass="alert alert-danger" cssStyle="margin-top: 10px" path="firstName" element="div"/>
+                            <form:errors cssClass="alert alert-danger" cssStyle="margin-top: 10px" path="firstName"
+                                         element="div"/>
 
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Nazwisko:</label>
                             <form:input path="lastName" type="text" class="form-control" id="exampleInputEmail1"
                                         aria-describedby="emailHelp"/>
-                            <form:errors cssClass="alert alert-danger" cssStyle="margin-top: 10px" path="lastName" element="div"/>
+                            <form:errors cssClass="alert alert-danger" cssStyle="margin-top: 10px" path="lastName"
+                                         element="div"/>
 
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Adres email::</label>
                             <form:input path="email" type="email" class="form-control" id="exampleInputEmail1"
                                         aria-describedby="emailHelp"/>
-                            <form:errors cssClass="alert alert-danger" cssStyle="margin-top: 10px" path="email" element="div"/>
+                            <form:errors cssClass="alert alert-danger" cssStyle="margin-top: 10px" path="email"
+                                         element="div"/>
 
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Hasło:</label>
                             <form:input path="password" type="password" class="form-control" id="exampleInputEmail1"
                                         aria-describedby="emailHelp"/>
-                            <form:errors cssClass="alert alert-danger" cssStyle="margin-top: 10px" path="password" element="div"/>
+                            <form:errors cssClass="alert alert-danger" cssStyle="margin-top: 10px" path="password"
+                                         element="div"/>
 
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Powtórz hasło:</label>
                             <form:input path="rePassword" type="password" class="form-control" id="exampleInputEmail1"
                                         aria-describedby="emailHelp"/>
-                            <form:errors cssClass="alert alert-danger" cssStyle="margin-top: 10px" path="rePassword" element="div"/>
+                            <form:errors cssClass="alert alert-danger" cssStyle="margin-top: 10px" path="rePassword"
+                                         element="div"/>
 
                         </div>
                         <button type="submit" class="btn btn-primary">Dodaj</button>

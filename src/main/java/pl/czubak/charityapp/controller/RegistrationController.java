@@ -22,7 +22,7 @@ public class RegistrationController {
 
   public RegistrationController(UserService userService, UserRepository userRepository) {
     this.userService = userService;
-    this.userRepository=userRepository;
+    this.userRepository = userRepository;
   }
 
   @GetMapping
@@ -34,19 +34,16 @@ public class RegistrationController {
   @PostMapping
   public String processRegistration(@Valid @ModelAttribute User user, BindingResult result) {
     User existUser = userRepository.findByEmail(user.getEmail());
-    if(existUser!=null) {
-      result
-              .rejectValue("email", "error.user", "Podany email istnieje w naszej bazie danych :)");
+    if (existUser != null) {
+      result.rejectValue("email", "error.user", "Podany email istnieje w naszej bazie danych :)");
       return "register";
     }
-    if(!user.getPassword().equals(user.getRePassword())){
-      result
-              .rejectValue("password","error.user", "Wpisane hasła różnią się od siebie");
+    if (!user.getPassword().equals(user.getRePassword())) {
+      result.rejectValue("password", "error.user", "Wpisane hasła różnią się od siebie");
       return "register";
     }
-    if(result.hasErrors()){
+    if (result.hasErrors()) {
       return "register";
-
     }
 
     userService.saveUser(user);

@@ -128,7 +128,8 @@
                             <label for="exampleInputEmail1">Nazwa Fundacji:</label>
                             <form:input path="name" type="text" class="form-control" id="exampleInputEmail1"
                                         aria-describedby="emailHelp"/>
-                            <form:errors cssClass="alert alert-danger" cssStyle="margin-top: 10px" path="name" element="div"/>
+                            <form:errors cssClass="alert alert-danger" cssStyle="margin-top: 10px" path="name"
+                                         element="div"/>
 
                         </div>
                         <div class="form-group">
