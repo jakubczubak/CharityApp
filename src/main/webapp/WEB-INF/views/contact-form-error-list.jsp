@@ -40,19 +40,13 @@
 
     <div style="padding-top: 100px">
             <h2>
-                Niepoprawnie wypełniony formularz!
+                Niepoprawnie wypełniony formularz kontaktowy!
             </h2>
         <div class="login-page">
-            <c:forEach items="${errorList}" var="error" varStatus="index">
+            <c:forEach items="${contactErrorList}" var="error" varStatus="index">
                 <label class="error">${index.count}.${error.name}</label>
             </c:forEach>
         </div>
-
-        <h2>
-            <a href="/donation">
-                <button class="btn" type="submit">Spróbuj ponownie</button>
-            </a>
-        </h2>
 
 
     </div>

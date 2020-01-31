@@ -1,6 +1,6 @@
 package pl.czubak.charityapp.model;
 
-public class DonationError {
+public class Error {
     private String name;
 
     public String getName() {
@@ -11,7 +11,7 @@ public class DonationError {
         this.name = name;
     }
 
-    public DonationError(String name) {
+    public Error(String name) {
         this.name = name;
     }
 }

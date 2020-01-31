@@ -53,7 +53,10 @@ public class UserController {
   }
 
   @PostMapping("/edit")
-  public String processEditUser(@ModelAttribute User user, HttpSession ses, Model model) {
+  public String processEditUser(@Valid @ModelAttribute User user, BindingResult result, HttpSession ses, Model model) {
+    if(result.hasErrors()){
+      return "user-edit-page";
+    }
     userService.updateUser(user);
     ses.removeAttribute("fullName");
     ses.removeAttribute("id");

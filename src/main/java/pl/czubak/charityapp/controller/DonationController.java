@@ -3,23 +3,18 @@ package pl.czubak.charityapp.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.czubak.charityapp.entity.Category;
 import pl.czubak.charityapp.entity.Donation;
 import pl.czubak.charityapp.entity.Institution;
 import pl.czubak.charityapp.entity.User;
-import pl.czubak.charityapp.model.DonationError;
-import pl.czubak.charityapp.model.PasswordDTO;
+import pl.czubak.charityapp.model.Error;
 import pl.czubak.charityapp.repository.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolation;
-import javax.validation.Valid;
 import javax.validation.Validator;
 import java.security.Principal;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -85,10 +80,10 @@ public class DonationController {
 
     Set<ConstraintViolation<Donation>> violations = validator.validate(donation);
     if(!violations.isEmpty()){
-      List<DonationError> donationErrorList = new ArrayList<>();
+      List<Error> errorList = new ArrayList<>();
       for (ConstraintViolation<Donation> constraintViolation : violations) {
-        donationErrorList.add(new DonationError(constraintViolation.getMessage())); }
-      model.addAttribute("donationErrorList", donationErrorList);
+        errorList.add(new Error(constraintViolation.getMessage())); }
+      model.addAttribute("donationErrorList", errorList);
       return "form-error-list";
     }
     donationRepository.save(donation);

@@ -72,12 +72,15 @@
     <form:form method="post" modelAttribute="user" action="/user/edit">
         <div class="form-group">
             <form:input path="firstName" type="text" name="firstName" placeholder="Imię"/>
+            <form:errors cssClass="error" path="firstName" element="div"/>
         </div>
         <div class="form-group">
             <form:input path="lastName" type="text" name="lastName" placeholder="Nazwisko"/>
+            <form:errors cssClass="error" path="lastName" element="div"/>
         </div>
         <div class="form-group">
             <form:input path="email" type="email" name="email" placeholder="Email"/>
+            <form:errors cssClass="error" path="email" element="div"/>
         </div>
 
         <form:hidden path="id"></form:hidden>
