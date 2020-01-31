@@ -12,25 +12,30 @@
 </head>
 <body>
 <%@include file="header.jsp" %>
->
+
 
 <section class="login-page">
     <h2>Załóż konto</h2>
     <form:form method="post" modelAttribute="user">
         <div class="form-group">
             <form:input path="firstName" type="text" name="firstName" placeholder="Imię"/>
+            <form:errors cssClass="error" path="firstName" element="div"/>
         </div>
         <div class="form-group">
             <form:input path="lastName" type="text" name="lastName" placeholder="Nazwisko"/>
+            <form:errors cssClass="error" path="lastName" element="div"/>
         </div>
         <div class="form-group">
             <form:input path="email" type="email" name="email" placeholder="Email"/>
+            <form:errors cssClass="error" path="email" element="div"/>
         </div>
         <div class="form-group">
             <form:input path="password" type="password" name="password" placeholder="Hasło"/>
+            <form:errors cssClass="error" path="password" element="div"/>
         </div>
         <div class="form-group">
             <form:input path="rePassword" type="password" name="rePassword" placeholder="Powtórz hasło"/>
+            <form:errors cssClass="error" path="rePassword" element="div"/>
         </div>
 
         <div class="form-group form-group--buttons">
@@ -41,6 +46,6 @@
 </section>
 
 <%@include file="footer.jsp" %>
->
+
 </body>
 </html>

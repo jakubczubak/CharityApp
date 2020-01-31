@@ -1,6 +1,10 @@
 package pl.czubak.charityapp.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.Set;
 
@@ -10,11 +14,20 @@ public class User {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-
+  @NotNull
+  @Size(min = 3, max = 30)
   private String firstName;
+  @NotNull
+  @Size(min = 3, max = 30)
   private String lastName;
+  @NotEmpty
+  @Email
   private String email;
+  @NotNull
+  @Size(min = 3)
   private String password;
+  @NotNull
+  @Size(min = 3)
   private String rePassword;
   private int enabled;
   @Transient private String fullName;
