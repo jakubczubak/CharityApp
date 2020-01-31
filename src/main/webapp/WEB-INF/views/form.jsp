@@ -97,7 +97,6 @@
                         </label>
                     </div>
                 </c:forEach>
-
                 <div class="form-group form-group--buttons">
                     <button type="button" class="btn next-step">Dalej</button>
                 </div>
@@ -127,7 +126,7 @@
                 <c:forEach items="${institutions}" var="institution">
                     <div class="form-group form-group--checkbox">
                         <label id="getLabel">
-                            <input type="radio" name="organization" value="${institution.id}"/>
+                            <input type="radio" name="organization" value="${institution.id}" />
                             <span class="checkbox radio"></span>
                             <span class="description">
                   <div id="getInstitutionName" class="title">Fundacja “${institution.name}"</div>

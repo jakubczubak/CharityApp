@@ -3,6 +3,7 @@ package pl.czubak.charityapp.entity;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
@@ -13,26 +14,34 @@ public class Donation {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-
+  @Min(1)
   private int quantity;
 
   @ManyToMany(fetch = FetchType.EAGER)
+  @NotNull(message = "Zaznacz co chcesz oddać!")
   private List<Category> categories;
-
+  @NotNull(message = "Wybierz instytucję którą chcesz wesprzeć!")
   @ManyToOne private Institution institution;
+  @NotEmpty(message = "Brak nazwy ulicy")
   private String street;
+  @NotEmpty(message = "Brak miejsca zamieszkania")
   private String city;
+  @NotEmpty(message = "Podaj kod pocztowy")
   private String zipCode;
 
   @Temporal(TemporalType.DATE)
   @DateTimeFormat(pattern = "yyyy-MM-dd")
+  @Future
+  @NotNull(message = "Podaj datę odbioru darowizny przez kuriera")
   private Date pickUpDate;
 
   @DateTimeFormat(pattern = "HH:MM")
   @Temporal(TemporalType.TIME)
+  @NotNull(message = "Podaj czas odebrania darowizny")
   private Date pickUpTime;
 
   private String pickUpComment;
+  @NotEmpty(message = "Podaj numer telefonu")
   private String phoneNumber;
   @ManyToOne private User user;
   @ManyToOne private Status status;

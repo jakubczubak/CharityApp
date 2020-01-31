@@ -15,7 +15,11 @@
 
 
 <section class="login-page">
-    <h2>Zaloguj się</h2>
+    <c:if test="${param.error!=null}">
+        <div class="error" >
+            <h2>Niepoprawne dane!</h2>
+        </div>
+    </c:if>
     <form:form method="post" action="/login">
         <div class="form-group">
             <input type="email" name="email" placeholder="Email"/>

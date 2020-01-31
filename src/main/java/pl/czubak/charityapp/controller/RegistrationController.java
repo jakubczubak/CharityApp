@@ -41,7 +41,7 @@ public class RegistrationController {
     }
     if(!user.getPassword().equals(user.getRePassword())){
       result
-              .rejectValue("password","error.admin", "Wpisane hasła różnią się od siebie");
+              .rejectValue("password","error.user", "Wpisane hasła różnią się od siebie");
       return "register";
     }
     if(result.hasErrors()){
