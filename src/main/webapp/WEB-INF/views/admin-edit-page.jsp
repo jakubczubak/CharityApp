@@ -127,21 +127,27 @@
                     </div>
                 </c:if>
                 <div>
-                    <form:form modelAttribute="admin" method="post" action="/admin/edit">
+                    <form:form modelAttribute="user" method="post" action="/admin/edit">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Imię:</label>
                             <form:input path="firstName" type="text" class="form-control" id="exampleInputEmail1"
                                         aria-describedby="emailHelp"/>
+                            <form:errors cssClass="alert alert-danger" cssStyle="margin-top: 10px" path="firstName" element="div"/>
+
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Nazwisko:</label>
                             <form:input path="lastName" type="text" class="form-control" id="exampleInputEmail1"
                                         aria-describedby="emailHelp"/>
+                            <form:errors cssClass="alert alert-danger" cssStyle="margin-top: 10px" path="lastName" element="div"/>
+
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Adres email::</label>
                             <form:input path="email" type="email" class="form-control" id="exampleInputEmail1"
                                         aria-describedby="emailHelp"/>
+                            <form:errors cssClass="alert alert-danger" cssStyle="margin-top: 10px" path="email" element="div"/>
+
                         </div>
                         <form:hidden path="id"></form:hidden>
                         <button type="submit" class="btn btn-warning">Zapisz</button>

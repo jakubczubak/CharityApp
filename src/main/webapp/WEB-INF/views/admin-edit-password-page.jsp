@@ -126,27 +126,38 @@
                         Pomyślnie zmieniono hasło!
                     </div>
                 </c:if>
-                <c:if test="${param.error!=null}">
+                <c:if test="${param.error1!=null}">
                     <div class="alert alert-danger text-center" role="alert">
-                        Niepoprawne dane!
+                        Wpisane hasła różnią się od siebie!
+                    </div>
+                </c:if>
+                <c:if test="${param.error2!=null}">
+                    <div class="alert alert-danger text-center" role="alert">
+                        Niepoprawne stare hasło!
                     </div>
                 </c:if>
                 <div>
                     <form:form modelAttribute="passwordDTO" method="post" action="/admin/edit/password">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Podaj stare hasło:</label>
-                            <form:input path="oldPassword" type="text" class="form-control" id="exampleInputEmail1"
+                            <form:input path="oldPassword" type="password" class="form-control" id="exampleInputEmail1"
                                         aria-describedby="emailHelp"/>
+                            <form:errors cssClass="alert alert-danger" cssStyle="margin-top: 10px" path="oldPassword" element="div"/>
+
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Nowe hasło:</label>
-                            <form:input path="password" type="text" class="form-control" id="exampleInputEmail1"
+                            <form:input path="password" type="password" class="form-control" id="exampleInputEmail1"
                                         aria-describedby="emailHelp"/>
+                            <form:errors cssClass="alert alert-danger" cssStyle="margin-top: 10px" path="password" element="div"/>
+
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Powtórz hasło::</label>
-                            <form:input path="rePassword" type="text" class="form-control" id="exampleInputEmail1"
+                            <form:input path="rePassword" type="password" class="form-control" id="exampleInputEmail1"
                                         aria-describedby="emailHelp"/>
+                            <form:errors cssClass="alert alert-danger" cssStyle="margin-top: 10px" path="rePassword" element="div"/>
+
                         </div>
                         <button type="submit" class="btn btn-warning">Zapisz</button>
                     </form:form>

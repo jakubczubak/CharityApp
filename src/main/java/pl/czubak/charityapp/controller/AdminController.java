@@ -1,7 +1,9 @@
 package pl.czubak.charityapp.controller;
 
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import pl.czubak.charityapp.entity.Donation;
@@ -17,6 +19,7 @@ import pl.czubak.charityapp.service.DonationService;
 import pl.czubak.charityapp.service.UserService;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
 
@@ -79,7 +82,10 @@ public class AdminController {
   }
 
   @PostMapping("/institution/add")
-  public String processAddInstitution(@ModelAttribute Institution institution) {
+  public String processAddInstitution(@Valid @ModelAttribute Institution institution, BindingResult result) {
+    if(result.hasErrors()){
+      return "admin-institution-add-page";
+    }
     institutionRepository.save(institution);
     return "redirect:/admin/institutions?successadd";
   }
@@ -92,7 +98,11 @@ public class AdminController {
   }
 
   @PostMapping("/institution/edit/")
-  public String processEditInstitution(@ModelAttribute Institution institution) {
+  public String processEditInstitution(@Valid @ModelAttribute Institution institution, BindingResult result) {
+    if(result.hasErrors()){
+      return "admin-institution-edit-page";
+
+    }
     institutionRepository.save(institution);
     return "redirect:/admin/institutions?successedit";
   }
@@ -117,7 +127,10 @@ public class AdminController {
   }
 
   @PostMapping("/user/edit")
-  public String editUser(@ModelAttribute User user) {
+  public String editUser(@Valid @ModelAttribute User user, BindingResult result) {
+    if(result.hasErrors()){
+      return "admin-user-edit-page";
+    }
     userService.updateUser(user);
     return "redirect:/admin/users?successedit";
   }
@@ -153,13 +166,21 @@ public class AdminController {
 
   @GetMapping("/add")
   public String addAdmin(Model model) {
-    model.addAttribute("admin", new User());
+    model.addAttribute("user", new User());
     return "admin-add-page";
   }
 
   @PostMapping("/add")
-  public String processAddAdmin(@ModelAttribute(name = "admin") User admin) {
-    userService.saveAdmin(admin);
+  public String processAddAdmin(@Valid @ModelAttribute User user, BindingResult result) {
+    if(result.hasErrors()){
+      return "admin-add-page";
+    }
+    if(!user.getPassword().equals(user.getRePassword())){
+      result
+              .rejectValue("password","error.user", "Wpisane hasła różnią się od siebie");
+      return "admin-add-page";
+    }
+    userService.saveAdmin(user);
     return "redirect:/admin/list?successadd";
   }
 
@@ -181,16 +202,19 @@ public class AdminController {
   public String editAdmin(@PathVariable Long id, Model model) {
     User currentAdmin = userRepository.findById(id).get();
     model.addAttribute("fullName", currentAdmin.getFullName());
-    model.addAttribute("admin", currentAdmin);
+    model.addAttribute("user", currentAdmin);
     return "admin-edit-page";
   }
 
   @PostMapping("/edit")
-  public String processEditAdmin(@ModelAttribute(name = "admin") User admin, HttpSession ses, Model model) {
-    userService.updateUser(admin);
+  public String processEditAdmin(@Valid @ModelAttribute User user,BindingResult result, HttpSession ses, Model model) {
+    if(result.hasErrors()){
+      return "admin-edit-page";
+    }
+    userService.updateUser(user);
     ses.removeAttribute("fullName");
-    model.addAttribute("fullName", admin.getFullName());
-    return "redirect:/admin/edit/"+admin.getId() + "?seccessedit";
+    model.addAttribute("fullName", user.getFullName());
+    return "redirect:/admin/edit/"+user.getId() + "?seccessedit";
   }
 
   @GetMapping("/edit/password")
@@ -200,16 +224,19 @@ public class AdminController {
   }
 
   @PostMapping("/edit/password")
-  public String processEditPassword(@ModelAttribute PasswordDTO passwordDTO, HttpSession ses) {
+  public String processEditPassword(@Valid @ModelAttribute PasswordDTO passwordDTO, BindingResult result, HttpSession ses) {
     Long sesID = (Long) ses.getAttribute("id");
     User currentUser = userRepository.findById(sesID).get();
+    if(result.hasErrors()){
+      return "admin-edit-password-page";
+    }
     if (!passwordDTO.getPassword().equals(passwordDTO.getRePassword())) {
-      return "redirect:/admin/edit/password?error";
+      return "redirect:/admin/edit/password?error1";
     }
     if (userService.editUserPassword(currentUser, passwordDTO)) {
       return "redirect:/admin/edit/password?success";
     } else {
-      return "redirect:/admin/edit/password?error";
+      return "redirect:/admin/edit/password?error2";
     }
   }
 

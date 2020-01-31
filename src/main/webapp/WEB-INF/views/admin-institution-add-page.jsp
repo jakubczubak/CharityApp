@@ -128,11 +128,14 @@
                             <label for="exampleInputEmail1">Nazwa Fundacji:</label>
                             <form:input path="name" type="text" class="form-control" id="exampleInputEmail1"
                                         aria-describedby="emailHelp"/>
+                            <form:errors cssClass="alert alert-danger" cssStyle="margin-top: 10px" path="name" element="div"/>
+
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlTextarea1">Opis Fundacji</label>
                             <form:textarea path="description" class="form-control" id="exampleFormControlTextarea1"
                                            rows="3"></form:textarea>
+                            <form:errors cssClass="alert alert-danger" cssStyle="margin-top: 10px" path="description" element="div"/>
                         </div>
 
                         <button type="submit" class="btn btn-primary">Dodaj</button>
