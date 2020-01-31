@@ -43,7 +43,7 @@
                 Niepoprawnie wypełniony formularz!
             </h2>
         <div class="login-page">
-            <c:forEach items="${errorList}" var="error" varStatus="index">
+            <c:forEach items="${donationErrorList}" var="error" varStatus="index">
                 <label class="error">${index.count}.${error.name}</label>
             </c:forEach>
         </div>
